@@ -39,7 +39,7 @@ class App extends React.PureComponent {
                 )}
                 {!isAppInitializing && (
                     <Fragment>
-                        <AppBar position="static">
+                        <AppBar position="static" style={{ backgroundColor: 'white' }}>
                             <AppToolbar />
                         </AppBar>
                         <LoadingBar className={classes.loadingBar} />

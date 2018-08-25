@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Whatshot } from '@material-ui/icons';
-import { Toolbar } from '@material-ui/core';
+import { MusicNote } from '@material-ui/icons';
+import { Toolbar, Typography } from '@material-ui/core';
 
 import styles from './AppToolbar.styles';
 
@@ -17,7 +17,10 @@ class AppToolbar extends React.PureComponent {
 
         return (
             <Toolbar>
-                <Whatshot className={classes.logoIcon} />
+                <MusicNote className={classes.logoIcon} />
+                <Typography className={classes.logoText} variant="headline">
+                    MusicAroundMe
+                </Typography>
             </Toolbar>
         );
     }

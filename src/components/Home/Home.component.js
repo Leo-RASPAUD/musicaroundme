@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Map from 'components/Map/Map.component';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 
 import styles from './Home.styles';
 
@@ -19,8 +19,17 @@ class Home extends React.PureComponent {
         const { classes, currentPosition, getCurrentPosition, gmapsApiKey } = this.props;
         return (
             <div className={classes.root}>
-                <div>Home</div>
-                <Button onClick={getCurrentPosition}>Get position</Button>
+                <div className={classes.header}>
+                    <Typography variant="subheading">Home</Typography>
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={getCurrentPosition}
+                        style={{ marginLeft: 50 }}
+                    >
+                        Get position
+                    </Button>
+                </div>
                 <Map
                     googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${gmapsApiKey}&libraries=geometry,drawing,places`}
                     loadingElement={<div style={{ height: '100%' }} />}
