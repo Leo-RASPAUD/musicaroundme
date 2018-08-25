@@ -2,7 +2,7 @@ import LoadingBar from 'react-redux-loading-bar';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { AppBar } from '@material-ui/core';
+import { AppBar, CircularProgress } from '@material-ui/core';
 import AppToolbar from 'components/AppToolbar/AppToolbar.container';
 import SnackbarComponent from 'components/Snackbar/Snackbar.container';
 import Router from 'components/Router/Router.container';
@@ -13,21 +13,39 @@ import styles from './App.styles';
 class App extends React.PureComponent {
     static propTypes = {
         classes: PropTypes.object.isRequired,
+        isAppInitializing: PropTypes.bool.isRequired,
+        getConfiguration: PropTypes.func.isRequired,
+    };
+
+    componentDidMount = () => {
+        const { getConfiguration } = this.props;
+        getConfiguration();
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, isAppInitializing } = this.props;
 
         return (
             <div className={classes.root}>
                 <SnackbarComponent />
-                <Fragment>
-                    <AppBar position="static">
-                        <AppToolbar />
-                    </AppBar>
-                    <LoadingBar className={classes.loadingBar} />
-                    <Router />
-                </Fragment>
+                {isAppInitializing && (
+                    <div className={classes.progressWrapper}>
+                        <CircularProgress
+                            className={classes.progress}
+                            color="secondary"
+                            size={50}
+                        />
+                    </div>
+                )}
+                {!isAppInitializing && (
+                    <Fragment>
+                        <AppBar position="static">
+                            <AppToolbar />
+                        </AppBar>
+                        <LoadingBar className={classes.loadingBar} />
+                        <Router />
+                    </Fragment>
+                )}
             </div>
         );
     }

@@ -53,6 +53,7 @@
         "prop-types": "^15.6.2",
         "react": "^16.4.1",
         "react-dom": "^16.4.1",
+        "react-google-maps": "^9.4.5",
         "react-redux": "^5.0.7",
         "react-redux-loading-bar": "^4.0.5",
         "react-router-dom": "^4.3.1",

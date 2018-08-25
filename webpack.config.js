@@ -36,10 +36,9 @@ module.exports = {
             reducers: path.resolve(__dirname, './src/reducers'),
             utils: path.resolve(__dirname, './src/utils'),
             constants: path.resolve(__dirname, './src/constants'),
-            assets: path.resolve(__dirname, './src/assets'),
+            services: path.resolve(__dirname, './src/services'),
             queries: path.resolve(__dirname, './src/queries'),
             config: path.resolve(__dirname, './src/config'),
-            subscriptions: path.resolve(__dirname, './src/subscriptions'),
         },
     },
     devServer: {

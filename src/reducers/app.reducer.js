@@ -3,6 +3,8 @@ import snackbarTypes from 'utils/snackbarTypes';
 import SnackbarActions from 'components/Snackbar/Snackbar.actions';
 
 const initialState = {
+    configuration: {},
+    isAppInitializing: true,
     isSnackbarDisplayed: false,
     snackbarMessage: '',
     snackbarType: snackbarTypes.INFO,
@@ -11,7 +13,7 @@ const initialState = {
 
 const appReducer = (state = initialState, action) => {
     const newState = { ...state };
-    if (action.type !== AppActions.states.CHECK_SESSION_FAILURE && action.type.match(/FAILURE/)) {
+    if (action.type.match(/FAILURE/)) {
         newState.snackbarMessage = action.error;
         newState.isSnackbarDisplayed = true;
         newState.snackbarType = snackbarTypes.ERROR;
@@ -26,6 +28,13 @@ const appReducer = (state = initialState, action) => {
                 snackbarType: action.snackbarType,
                 snackbarDuration: action.snackbarDuration || state.snackbarDuration,
             };
+        case AppActions.states.GET_CONFIGURATION_SUCCESS: {
+            return {
+                ...state,
+                isAppInitializing: false,
+                configuration: action.configuration,
+            };
+        }
         default:
             return newState;
     }
