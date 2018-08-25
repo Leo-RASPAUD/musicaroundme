@@ -44,11 +44,11 @@ const getLocalisation = () => async (dispatch, getState) => {
     dispatch(getLocalisationLoadingAction());
     const {
         app: {
-            configuration: { ipApiKey },
+            configuration: { musicApiKey },
         },
     } = getState();
     try {
-        const result = await configurationService.getLocalisation({ apiKey: ipApiKey });
+        const result = await configurationService.getLocalisation({ musicApiKey });
         dispatch(getlocalisationSuccessAction({ localisation: result.data }));
     } catch (error) {
         dispatch(getlocalisationFailureAction({ error }));

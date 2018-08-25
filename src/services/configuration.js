@@ -5,9 +5,12 @@ const getConfiguration = () =>
         url: 'https://mzgp1rff79.execute-api.ap-southeast-2.amazonaws.com/prod/configuration',
     });
 
-const getLocalisation = ({ apiKey }) =>
+const getLocalisation = ({ musicApiKey }) =>
     httpUtils.get({
-        url: `http://api.ipstack.com/check?access_key=${apiKey}`,
+        url: 'https://nilep5ag3l.execute-api.ap-southeast-2.amazonaws.com/PROD/getLocalisation',
+        headers: {
+            'x-api-key': musicApiKey,
+        },
     });
 
 export default {
