@@ -1,22 +1,20 @@
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Home from './Home.component';
-import actions from './Home.actions';
+import Events from './Events.component';
+import actions from './Events.actions';
 
 const mapStateToProps = state => ({
-    currentPosition: state.home.currentPosition,
-    zoom: state.home.zoom,
-    gmapsApiKey: state.app.configuration.gmapsApiKey,
+    loading: state.events.loading,
     upcomingEvents: state.events.upcomingEvents,
 });
 
 const mapDispatchToProps = dispatch => ({
-    getCurrentPosition: () => dispatch(actions.getCurrentPosition()),
+    getEvents: ({ position }) => dispatch(actions.getEvents({ position })),
 });
 
 export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps,
-    )(Home),
+    )(Events),
 );

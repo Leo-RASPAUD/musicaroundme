@@ -7,18 +7,17 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-map
 class Home extends React.PureComponent {
     static propTypes = {
         position: PropTypes.object.isRequired,
-        zoom: PropTypes.number,
-    };
-
-    static defaultProps = {
-        zoom: 13,
+        upcomingEvents: PropTypes.array.isRequired,
+        zoom: PropTypes.number.isRequired,
     };
 
     render() {
-        const { position, zoom } = this.props;
+        const { position, zoom, upcomingEvents } = this.props;
         return (
-            <GoogleMap center={position} defaultZoom={zoom}>
-                <Marker position={position} />
+            <GoogleMap center={position} zoom={zoom}>
+                {upcomingEvents.map(event => (
+                    <Marker key={event.id} position={event.location} />
+                ))}
             </GoogleMap>
         );
     }

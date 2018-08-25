@@ -4,7 +4,8 @@ import SnackbarActions from 'components/Snackbar/Snackbar.actions';
 
 const initialState = {
     configuration: {},
-    isAppInitializing: true,
+    isLoadingLocalisation: true,
+    isLoadingConfiguration: true,
     isSnackbarDisplayed: false,
     snackbarMessage: '',
     snackbarType: snackbarTypes.INFO,
@@ -28,13 +29,20 @@ const appReducer = (state = initialState, action) => {
                 snackbarType: action.snackbarType,
                 snackbarDuration: action.snackbarDuration || state.snackbarDuration,
             };
-        case AppActions.states.GET_CONFIGURATION_SUCCESS: {
+        case AppActions.states.GET_CONFIGURATION_SUCCESS:
             return {
                 ...state,
-                isAppInitializing: false,
-                configuration: action.configuration,
+                isLoadingConfiguration: false,
+                configuration: action.configuration.Items.reduce(
+                    (a, b) => ({ ...a, [b.id.S]: b.value.S }),
+                    {},
+                ),
             };
-        }
+        case AppActions.states.GET_LOCALISATION_SUCCESS:
+            return {
+                ...state,
+                isLoadingLocalisation: false,
+            };
         default:
             return newState;
     }

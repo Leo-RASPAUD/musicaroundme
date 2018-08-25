@@ -1,0 +1,24 @@
+service: MusicAroundMe
+
+provider:
+    name: aws
+    stage: PROD
+    memorySize: 256
+    timeout: 30
+    runtime: nodejs8.10
+    region: ap-southeast-2
+    apiKeys:
+        - MUSIC_AROUND_ME_API_KEY
+
+functions:
+    getEvents:
+        handler: getEvents/handler.getEvents
+        environment:
+            API_KEY: ----
+        events:
+            - http:
+                  path: getEvents
+                  method: get
+                  private: true
+                  cors:
+                      origin: '*'

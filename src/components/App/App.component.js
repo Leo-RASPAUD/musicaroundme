@@ -13,8 +13,10 @@ import styles from './App.styles';
 class App extends React.PureComponent {
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        isAppInitializing: PropTypes.bool.isRequired,
+        isLoadingConfiguration: PropTypes.bool.isRequired,
+        isLoadingLocalisation: PropTypes.bool.isRequired,
         getConfiguration: PropTypes.func.isRequired,
+        getLocalisation: PropTypes.func.isRequired,
     };
 
     componentDidMount = () => {
@@ -22,8 +24,16 @@ class App extends React.PureComponent {
         getConfiguration();
     };
 
+    componentDidUpdate = () => {
+        const { getLocalisation, isLoadingConfiguration, isLoadingLocalisation } = this.props;
+        if (!isLoadingConfiguration && isLoadingLocalisation) {
+            getLocalisation();
+        }
+    };
+
     render() {
-        const { classes, isAppInitializing } = this.props;
+        const { classes, isLoadingLocalisation, isLoadingConfiguration } = this.props;
+        const isAppInitializing = isLoadingLocalisation || isLoadingConfiguration;
 
         return (
             <div className={classes.root}>
