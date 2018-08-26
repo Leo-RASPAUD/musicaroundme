@@ -12,7 +12,7 @@ class Events extends React.PureComponent {
         classes: PropTypes.object.isRequired,
         position: PropTypes.object.isRequired,
         getEvents: PropTypes.func.isRequired,
-        loading: PropTypes.bool.isRequired,
+        loading: PropTypes.array.isRequired,
         upcomingEvents: PropTypes.array.isRequired,
     };
 
@@ -34,8 +34,10 @@ class Events extends React.PureComponent {
         const { classes, upcomingEvents, loading } = this.props;
         return (
             <div className={classes.root}>
-                {loading && <Facebook />}
-                {!loading &&
+                {loading.length > 0 && <Facebook />}
+                {loading.length === 0 && upcomingEvents.length === 0 && <div>No events</div>}
+                {loading.length === 0 &&
+                    upcomingEvents.length > 0 &&
                     upcomingEvents.map(event => (
                         <Paper key={event.id} className={classes.item}>
                             {event.displayName}

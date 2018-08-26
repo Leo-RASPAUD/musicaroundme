@@ -1,12 +1,13 @@
 import cssConstants from 'constants/css.constants';
 
-export default () => ({
+export default theme => ({
     root: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
         flex: 1,
         ...cssConstants.overflow.auto,
-        maxHeight: '85vh',
+        maxHeight: '95vh',
+        paddingTop: 2 * theme.spacing.unit,
     },
     item: {
         margin: 10,

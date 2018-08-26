@@ -3,6 +3,7 @@
         "fetch": false,
         "window": true,
         "navigator": true,
+        "google": true,
         "document": true
     },
     "parser": "babel-eslint",
@@ -24,6 +25,8 @@
         "no-underscore-dangle": 0,
         "linebreak-style": 0,
         "react/jsx-indent": 0,
+        "jsx-a11y/click-events-have-key-events": 0,
+        "jsx-a11y/no-static-element-interactions": 0,
         "react/jsx-one-expression-per-line": 0,
         "react/jsx-wrap-multilines": 0,
         "react/jsx-indent-props": [2, 4],

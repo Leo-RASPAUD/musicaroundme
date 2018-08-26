@@ -40,9 +40,10 @@ class App extends React.PureComponent {
                 )}
                 {!isLoadingConfiguration && (
                     <Fragment>
-                        <AppBar position="static" style={{ backgroundColor: 'white' }}>
+                        <AppBar position="static" className={classes.toolbar}>
                             <AppToolbar />
                         </AppBar>
+                        <div className={classes.border} />
                         <LoadingBar className={classes.loadingBar} />
                         <Router />
                     </Fragment>

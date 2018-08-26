@@ -2,7 +2,7 @@ import EventsActions from 'components/Events/Events.actions';
 
 const initialState = {
     upcomingEvents: [],
-    loading: true,
+    loading: [],
 };
 
 const appReducer = (state = initialState, action) => {
@@ -11,13 +11,18 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 upcomingEvents: action.upcomingEvents,
-                loading: false,
+                loading: state.loading.slice(1) || [],
+            };
+        case EventsActions.states.GET_UPCOMING_EVENTS_FAILURE:
+            return {
+                ...state,
+                loading: state.loading.slice(1) || [],
             };
         case EventsActions.states.GET_UPCOMING_EVENTS_LOADING:
             return {
                 ...state,
                 upcomingEvents: [],
-                loading: true,
+                loading: state.loading.concat('loading'),
             };
         default:
             return state;
