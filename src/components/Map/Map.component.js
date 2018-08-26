@@ -4,6 +4,12 @@ import { withProps } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 
+const defaultOptions = {
+    streetViewControl: false,
+    mapTypeControl: false,
+    fullscreenControl: false,
+};
+
 @withProps(props => ({
     googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${props.gmapsApiKey}`,
     loadingElement: <Grid item xs={12} sm={9} style={{ height: '85vh' }} />,
@@ -47,6 +53,7 @@ class Map extends React.PureComponent {
             <GoogleMap
                 center={position}
                 zoom={zoom}
+                options={defaultOptions}
                 onDragEnd={this.getEvents}
                 onZoomChanged={this.getEvents}
                 ref={this.onMapMounted}
