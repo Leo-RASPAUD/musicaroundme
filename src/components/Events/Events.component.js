@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Paper } from '@material-ui/core';
+import { Paper, Typography } from '@material-ui/core';
 import { Facebook } from 'react-content-loader';
 
 import styles from './Events.styles';
@@ -12,6 +12,7 @@ class Events extends React.PureComponent {
         classes: PropTypes.object.isRequired,
         position: PropTypes.object.isRequired,
         getEvents: PropTypes.func.isRequired,
+        updateCurrentPosition: PropTypes.func.isRequired,
         loading: PropTypes.array.isRequired,
         upcomingEvents: PropTypes.array.isRequired,
     };
@@ -31,16 +32,25 @@ class Events extends React.PureComponent {
     };
 
     render() {
-        const { classes, upcomingEvents, loading } = this.props;
+        const { classes, upcomingEvents, loading, updateCurrentPosition } = this.props;
         return (
             <div className={classes.root}>
                 {loading.length > 0 && <Facebook />}
                 {loading.length === 0 && upcomingEvents.length === 0 && <div>No events</div>}
                 {loading.length === 0 &&
                     upcomingEvents.length > 0 &&
-                    upcomingEvents.map(event => (
-                        <Paper key={event.id} className={classes.item}>
-                            {event.displayName}
+                    upcomingEvents.map((event, index) => (
+                        <Paper
+                            key={event.id}
+                            className={classes.item}
+                            onClick={() =>
+                                updateCurrentPosition({
+                                    position: { lat: event.location.lat, lng: event.location.lng },
+                                })
+                            }
+                        >
+                            <Typography>{index}</Typography>
+                            <Typography>{event.displayName}</Typography>
                         </Paper>
                     ))}
             </div>

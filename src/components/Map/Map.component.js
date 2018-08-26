@@ -78,7 +78,6 @@ class Map extends React.PureComponent {
                 zoom={zoom}
                 options={defaultOptions}
                 onDragEnd={this.getEvents}
-                onZoomChanged={this.getEvents}
                 onBoundsChanged={this.onBoundsChanged}
                 ref={this.onMapMounted}
             >
@@ -94,8 +93,13 @@ class Map extends React.PureComponent {
                 >
                     <input type="text" placeholder="Search..." className={classes.search} />
                 </SearchBox>
-                {upcomingEvents.map(event => (
-                    <Marker key={event.id} position={event.location} />
+                {upcomingEvents.map((event, index) => (
+                    <Marker
+                        key={event.id}
+                        position={event.location}
+                        label={`${index}`}
+                        animation={google.maps.Animation.DROP}
+                    />
                 ))}
             </GoogleMap>
         );
