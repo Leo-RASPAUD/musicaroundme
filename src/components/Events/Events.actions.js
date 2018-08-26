@@ -19,7 +19,11 @@ const getEvents = ({ position }) => async (dispatch, getState) => {
     } = getState();
     dispatch(getEventsLoadingAction());
     const result = await events.getEvents({ position, musicApiKey });
-    dispatch(getEventsSuccessAction({ upcomingEvents: result.data.resultsPage.results.event }));
+    if (result.status !== 200) {
+        console.log(result);
+    } else {
+        dispatch(getEventsSuccessAction({ upcomingEvents: result.data }));
+    }
 };
 
 export default {

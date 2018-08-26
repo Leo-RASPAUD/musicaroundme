@@ -4,7 +4,6 @@ import SnackbarActions from 'components/Snackbar/Snackbar.actions';
 
 const initialState = {
     configuration: {},
-    isLoadingLocalisation: true,
     isLoadingConfiguration: true,
     isSnackbarDisplayed: false,
     snackbarMessage: '',
@@ -37,11 +36,6 @@ const appReducer = (state = initialState, action) => {
                     (a, b) => ({ ...a, [b.id.S]: b.value.S }),
                     {},
                 ),
-            };
-        case AppActions.states.GET_LOCALISATION_SUCCESS:
-            return {
-                ...state,
-                isLoadingLocalisation: false,
             };
         default:
             return newState;

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Map from 'components/Map/Map.component';
+import Map from 'components/Map/Map.container';
 import Events from 'components/Events/Events.container';
 import { Button, Typography } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 import styles from './Home.styles';
 
@@ -11,49 +12,33 @@ import styles from './Home.styles';
 class Home extends React.PureComponent {
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        currentPosition: PropTypes.object.isRequired,
-        zoom: PropTypes.number.isRequired,
         getCurrentPosition: PropTypes.func.isRequired,
-        gmapsApiKey: PropTypes.string.isRequired,
-        upcomingEvents: PropTypes.array.isRequired,
+        currentPosition: PropTypes.object.isRequired,
     };
 
     render() {
-        const {
-            classes,
-            currentPosition,
-            getCurrentPosition,
-            gmapsApiKey,
-            upcomingEvents,
-            zoom,
-        } = this.props;
+        const { classes, getCurrentPosition, currentPosition } = this.props;
+        const isCurrentPosition = Object.keys(currentPosition).length > 0;
         return (
             <div className={classes.root}>
-                <div className={classes.header}>
-                    <Typography variant="subheading">Home</Typography>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={getCurrentPosition}
-                        style={{ marginLeft: 50 }}
-                    >
-                        Get position
-                    </Button>
-                </div>
-                <div className={classes.content}>
-                    <Map
-                        googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&key=${gmapsApiKey}`}
-                        loadingElement={<div style={{ height: '100%', width: '75vw' }} />}
-                        containerElement={
-                            <div style={{ height: '85vh', width: '75vw', flexGrow: 1 }} />
-                        }
-                        mapElement={<div style={{ height: '100%' }} />}
-                        position={currentPosition}
-                        upcomingEvents={upcomingEvents}
-                        zoom={zoom}
-                    />
-                    <Events position={currentPosition} />
-                </div>
+                {!isCurrentPosition && (
+                    <div className={classes.header}>
+                        <Typography variant="subheading">
+                            First we need to get your position!
+                        </Typography>
+                        <Button variant="outlined" color="primary" onClick={getCurrentPosition}>
+                            Get position
+                        </Button>
+                    </div>
+                )}
+                {isCurrentPosition && (
+                    <Grid container className={classes.root} spacing={16}>
+                        <Map />
+                        <Grid item xs={12} sm={3}>
+                            <Events position={currentPosition} />
+                        </Grid>
+                    </Grid>
+                )}
             </div>
         );
     }

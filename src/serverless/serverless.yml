@@ -22,14 +22,3 @@ functions:
                   private: true
                   cors:
                       origin: '*'
-    getLocalisation:
-        handler: getLocalisation/handler.getLocalisation
-        environment:
-            API_KEY: 2ad109bcfc60b277255864beabe7d4c3c5b1cf1351b12715e7df2ec8
-        events:
-            - http:
-                  path: getLocalisation
-                  method: get
-                  private: true
-                  cors:
-                      origin: '*'

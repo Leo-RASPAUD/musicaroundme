@@ -14,31 +14,22 @@ class App extends React.PureComponent {
     static propTypes = {
         classes: PropTypes.object.isRequired,
         isLoadingConfiguration: PropTypes.bool.isRequired,
-        isLoadingLocalisation: PropTypes.bool.isRequired,
         getConfiguration: PropTypes.func.isRequired,
-        getLocalisation: PropTypes.func.isRequired,
     };
 
-    componentDidMount = () => {
+    constructor(props) {
+        super(props);
         const { getConfiguration } = this.props;
         getConfiguration();
-    };
-
-    componentDidUpdate = () => {
-        const { getLocalisation, isLoadingConfiguration, isLoadingLocalisation } = this.props;
-        if (!isLoadingConfiguration && isLoadingLocalisation) {
-            getLocalisation();
-        }
-    };
+    }
 
     render() {
-        const { classes, isLoadingLocalisation, isLoadingConfiguration } = this.props;
-        const isAppInitializing = isLoadingLocalisation || isLoadingConfiguration;
+        const { classes, isLoadingConfiguration } = this.props;
 
         return (
             <div className={classes.root}>
                 <SnackbarComponent />
-                {isAppInitializing && (
+                {isLoadingConfiguration && (
                     <div className={classes.progressWrapper}>
                         <CircularProgress
                             className={classes.progress}
@@ -47,7 +38,7 @@ class App extends React.PureComponent {
                         />
                     </div>
                 )}
-                {!isAppInitializing && (
+                {!isLoadingConfiguration && (
                     <Fragment>
                         <AppBar position="static" style={{ backgroundColor: 'white' }}>
                             <AppToolbar />
