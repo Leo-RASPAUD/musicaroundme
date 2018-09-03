@@ -5,14 +5,14 @@ import { withStyles } from '@material-ui/core/styles';
 import { AppBar, CircularProgress } from '@material-ui/core';
 import AppToolbar from 'components/AppToolbar/AppToolbar.component';
 import Router from 'components/Router/Router.component';
-import SnackbarComponent from 'components/Snackbar/Snackbar.container';
+import Snackbar from 'containers/Snackbar.container';
 import styles from './MusicAroundMe.styles';
 
 const MusicAroundMe = props => {
     const { classes, isLoadingConfiguration } = props;
     return (
         <Fragment>
-            <SnackbarComponent />
+            <Snackbar />
             {isLoadingConfiguration && <CircularProgress color="secondary" size={50} />}
             {!isLoadingConfiguration && (
                 <Fragment>

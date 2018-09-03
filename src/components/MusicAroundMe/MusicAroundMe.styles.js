@@ -1,6 +1,8 @@
+import cssConstants from 'constants/css.constants';
+
 const styles = theme => ({
     loadingBar: {
-        position: 'absolute',
+        ...cssConstants.position.absolute,
         height: 2,
         zIndex: 10,
         backgroundColor: theme.palette.secondary.main,
@@ -16,8 +18,8 @@ const styles = theme => ({
         backgroundColor: '#2b36414f',
         width: '100%',
         height: 1,
-        opacity: 0.15,
-        position: 'fixed',
+        opacity: 0.5,
+        ...cssConstants.position.absolute,
     },
 });
 
