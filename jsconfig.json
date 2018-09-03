@@ -4,6 +4,8 @@
         "baseUrl": "./src",
         "paths": {
             "components": ["./components"],
+            "actions": ["./actions"],
+            "containers": ["./containers"],
             "reducers": ["./reducers"],
             "utils": ["./utils"],
             "assets": ["./assets"],

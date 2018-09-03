@@ -8,7 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import { ConnectedRouter, routerMiddleware } from 'react-router-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import mainReducer from 'reducers/main.reducer';
-import App from 'components/App/App.container';
+import App from 'containers/App.container';
 import './assets/app.css';
 import 'animate.css';
 

@@ -6,24 +6,20 @@ import { Toolbar, Typography } from '@material-ui/core';
 
 import styles from './AppToolbar.styles';
 
-@withStyles(styles)
-class AppToolbar extends React.PureComponent {
-    static propTypes = {
-        classes: PropTypes.object.isRequired,
-    };
+const AppToolbar = props => {
+    const { classes } = props;
+    return (
+        <Toolbar>
+            <MusicNote className={classes.logoIcon} />
+            <Typography className={classes.logoText} variant="headline">
+                MusicAroundMe
+            </Typography>
+        </Toolbar>
+    );
+};
 
-    render() {
-        const { classes } = this.props;
+AppToolbar.propTypes = {
+    classes: PropTypes.object.isRequired,
+};
 
-        return (
-            <Toolbar>
-                <MusicNote className={classes.logoIcon} />
-                <Typography className={classes.logoText} variant="headline">
-                    MusicAroundMe
-                </Typography>
-            </Toolbar>
-        );
-    }
-}
-
-export default AppToolbar;
+export default withStyles(styles)(AppToolbar);

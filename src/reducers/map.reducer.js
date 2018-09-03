@@ -1,4 +1,4 @@
-import MapActions from 'components/Map/Map.actions';
+import MapActions from 'actions/Map.actions';
 
 const initialState = {
     currentPosition: {},

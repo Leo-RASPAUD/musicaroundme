@@ -1,4 +1,4 @@
-import AppActions from 'components/App/App.actions';
+import AppActions from 'actions/App.actions';
 import snackbarTypes from 'utils/snackbarTypes';
 import SnackbarActions from 'components/Snackbar/Snackbar.actions';
 

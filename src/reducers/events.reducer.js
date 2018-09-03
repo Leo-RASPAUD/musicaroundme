@@ -1,4 +1,4 @@
-import EventsActions from 'components/Events/Events.actions';
+import EventsActions from 'actions/Events.actions';
 
 const initialState = {
     upcomingEvents: [],

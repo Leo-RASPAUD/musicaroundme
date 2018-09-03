@@ -1,8 +1,8 @@
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import eventsActions from 'actions/Events.actions';
 import Map from './Map.component';
 import actions from './Map.actions';
-import eventsActions from '../Events/Events.actions';
 
 const mapStateToProps = state => ({
     position: state.map.currentPosition,
