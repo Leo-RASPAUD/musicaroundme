@@ -47,6 +47,7 @@ class App extends React.PureComponent {
             message,
             snackbarDuration,
         } = this.props;
+        console.log(message);
         return (
             <Snackbar
                 anchorOrigin={{
@@ -59,6 +60,7 @@ class App extends React.PureComponent {
                 message={message}
                 ContentProps={{
                     style: {
+                        color: 'white',
                         backgroundColor: snackbarColor,
                     },
                 }}

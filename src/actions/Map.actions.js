@@ -1,33 +1,42 @@
-const states = {
-    GET_CURRENT_POSITION_LOADING: 'GET_CURRENT_POSITION_LOADING',
-    GET_CURRENT_POSITION_SUCCESS: 'GET_CURRENT_POSITION_SUCCESS',
-    UPDATE_CURRENT_POSITION: 'UPDATE_CURRENT_POSITION',
-};
+import states from 'constants/states.constants';
 
 const updateCurrentPositionAction = ({ position }) => ({
     type: states.UPDATE_CURRENT_POSITION,
     position,
 });
-const getCurrentPositionLoading = () => ({ type: states.GET_CURRENT_POSITION_LOADING });
+const getCurrentPositionLoading = () => ({ type: states.GET_CURRENT_POSITION.loading });
 const getCurrentPositionLoadingSuccess = ({ currentPosition }) => ({
-    type: states.GET_CURRENT_POSITION_SUCCESS,
+    type: states.GET_CURRENT_POSITION.success,
     currentPosition,
+});
+const getCurrentPositionLoadingFailure = ({ message }) => ({
+    type: states.GET_CURRENT_POSITION.failure,
+    message,
 });
 
 const getCurrentPosition = () => async dispatch => {
     dispatch(getCurrentPositionLoading());
-    const currentPosition = await new Promise(resolve => {
-        navigator.geolocation.getCurrentPosition(result => {
-            const {
-                coords: { latitude, longitude },
-            } = result;
-            resolve({
-                lat: latitude,
-                lng: longitude,
-            });
+    try {
+        const currentPosition = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+                result => {
+                    const {
+                        coords: { latitude, longitude },
+                    } = result;
+                    resolve({
+                        lat: latitude,
+                        lng: longitude,
+                    });
+                },
+                () => {
+                    reject(new Error('You need to allow location tracking to use this website.'));
+                },
+            );
         });
-    });
-    dispatch(getCurrentPositionLoadingSuccess({ currentPosition }));
+        dispatch(getCurrentPositionLoadingSuccess({ currentPosition }));
+    } catch (error) {
+        dispatch(getCurrentPositionLoadingFailure({ message: error.message }));
+    }
 };
 
 const updateCurrentPosition = ({ position }) => async dispatch => {
@@ -35,7 +44,6 @@ const updateCurrentPosition = ({ position }) => async dispatch => {
 };
 
 export default {
-    states,
     getCurrentPosition,
     updateCurrentPosition,
 };

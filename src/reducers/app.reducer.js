@@ -1,6 +1,5 @@
-import AppActions from 'actions/App.actions';
 import snackbarTypes from 'utils/snackbarTypes';
-import SnackbarActions from 'components/Snackbar/Snackbar.actions';
+import states from 'constants/states.constants';
 
 const initialState = {
     configuration: {},
@@ -14,13 +13,13 @@ const initialState = {
 const appReducer = (state = initialState, action) => {
     const newState = { ...state };
     if (action.type.match(/FAILURE/)) {
-        newState.snackbarMessage = action.error;
+        newState.snackbarMessage = action.message;
         newState.isSnackbarDisplayed = true;
         newState.snackbarType = snackbarTypes.ERROR;
     }
     switch (action.type) {
-        case SnackbarActions.states.REQUEST_SHOW_SNACKBAR:
-        case SnackbarActions.states.CLOSE_SNACKBAR:
+        case states.REQUEST_SHOW_SNACKBAR:
+        case states.CLOSE_SNACKBAR:
             return {
                 ...newState,
                 isSnackbarDisplayed: action.isSnackbarDisplayed,
@@ -28,7 +27,7 @@ const appReducer = (state = initialState, action) => {
                 snackbarType: action.snackbarType,
                 snackbarDuration: action.snackbarDuration || state.snackbarDuration,
             };
-        case AppActions.states.GET_CONFIGURATION_SUCCESS:
+        case states.GET_CONFIGURATION.success:
             return {
                 ...state,
                 isLoadingConfiguration: false,

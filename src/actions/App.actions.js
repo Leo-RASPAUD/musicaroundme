@@ -1,20 +1,15 @@
 import configurationService from 'services/configuration';
+import states from 'constants/states.constants';
 
-const states = {
-    GET_CONFIGURATION_LOADING: 'GET_CONFIGURATION_LOADING',
-    GET_CONFIGURATION_SUCCESS: 'GET_CONFIGURATION_SUCCESS',
-    GET_CONFIGURATION_FAILURE: 'GET_CONFIGURATION_FAILURE',
-};
-
-const getConfigurationLoadingAction = () => ({ type: states.GET_CONFIGURATION_LOADING });
+const getConfigurationLoadingAction = () => ({ type: states.GET_CONFIGURATION.loading });
 
 const getConfigurationSuccessAction = ({ configuration }) => ({
-    type: states.GET_CONFIGURATION_SUCCESS,
+    type: states.GET_CONFIGURATION.success,
     configuration,
 });
 
 const getConfigurationFailureAction = ({ error }) => ({
-    type: states.GET_CONFIGURATION_FAILURE,
+    type: states.GET_CONFIGURATION.failure,
     error,
 });
 
@@ -30,5 +25,4 @@ const getConfiguration = () => async dispatch => {
 
 export default {
     getConfiguration,
-    states,
 };

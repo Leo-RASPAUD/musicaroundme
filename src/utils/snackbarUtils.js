@@ -1,8 +1,8 @@
-import snackbarActions from 'components/Snackbar/Snackbar.actions';
 import snackbarTypes from 'utils/snackbarTypes';
+import states from 'constants/states.constants';
 
 const displaySnackbar = ({ message, type, duration }) => ({
-    type: snackbarActions.states.REQUEST_SHOW_SNACKBAR,
+    type: states.REQUEST_SHOW_SNACKBAR,
     isSnackbarDisplayed: true,
     snackbarMessage: message,
     snackbarType: type,

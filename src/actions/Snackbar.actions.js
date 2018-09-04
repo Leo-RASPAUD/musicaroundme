@@ -1,9 +1,5 @@
 import snackbarTypes from 'utils/snackbarTypes';
-
-const states = {
-    CLOSE_SNACKBAR: 'CLOSE_SNACKBAR',
-    REQUEST_SHOW_SNACKBAR: 'REQUEST_SHOW_SNACKBAR',
-};
+import states from 'constants/states.constants';
 
 const closeSnackbarAction = () => ({
     type: states.CLOSE_SNACKBAR,
@@ -17,6 +13,5 @@ const closeSnackbar = () => dispatch => {
 };
 
 export default {
-    states,
     closeSnackbar,
 };

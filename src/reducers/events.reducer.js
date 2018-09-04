@@ -1,4 +1,4 @@
-import EventsActions from 'actions/Events.actions';
+import states from 'constants/states.constants';
 
 const initialState = {
     upcomingEvents: [],
@@ -7,18 +7,18 @@ const initialState = {
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case EventsActions.states.GET_UPCOMING_EVENTS_SUCCESS:
+        case states.GET_UPCOMING_EVENTS.success:
             return {
                 ...state,
                 upcomingEvents: action.upcomingEvents,
                 loading: state.loading.slice(1) || [],
             };
-        case EventsActions.states.GET_UPCOMING_EVENTS_FAILURE:
+        case states.GET_UPCOMING_EVENTS.failure:
             return {
                 ...state,
                 loading: state.loading.slice(1) || [],
             };
-        case EventsActions.states.GET_UPCOMING_EVENTS_LOADING:
+        case states.GET_UPCOMING_EVENTS.loading:
             return {
                 ...state,
                 upcomingEvents: [],

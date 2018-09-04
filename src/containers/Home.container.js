@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import mapActions from 'actions/Map.actions';
 import Home from 'components/Home/Home.component';
 
 const mapStateToProps = state => ({
@@ -12,24 +11,19 @@ const mapStateToProps = state => ({
     upcomingEvents: state.events.upcomingEvents,
 });
 
-const mapDispatchToProps = dispatch => ({
-    getCurrentPosition: () => dispatch(mapActions.getCurrentPosition()),
-});
-
 @withRouter
 @connect(
     mapStateToProps,
-    mapDispatchToProps,
+    null,
 )
 class HomeContainer extends React.PureComponent {
     static propTypes = {
-        getCurrentPosition: PropTypes.func.isRequired,
         currentPosition: PropTypes.object.isRequired,
     };
 
     render() {
-        const { getCurrentPosition, currentPosition } = this.props;
-        return <Home currentPosition={currentPosition} getCurrentPosition={getCurrentPosition} />;
+        const { currentPosition } = this.props;
+        return <Home currentPosition={currentPosition} />;
     }
 }
 

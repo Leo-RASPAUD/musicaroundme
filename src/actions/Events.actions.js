@@ -1,16 +1,11 @@
 import events from 'services/events';
 import snackbarUtils from 'utils/snackbarUtils';
+import states from 'constants/states.constants';
 
-const states = {
-    GET_UPCOMING_EVENTS_LOADING: 'GET_UPCOMING_EVENTS_LOADING',
-    GET_UPCOMING_EVENTS_SUCCESS: 'GET_UPCOMING_EVENTS_SUCCESS',
-    GET_UPCOMING_EVENTS_FAILURE: 'GET_UPCOMING_EVENTS_FAILURE',
-};
-
-const getEventsLoadingAction = () => ({ type: states.GET_UPCOMING_EVENTS_LOADING });
-const getEventsFailureAction = () => ({ type: states.GET_UPCOMING_EVENTS_FAILURE });
+const getEventsLoadingAction = () => ({ type: states.GET_UPCOMING_EVENTS.loading });
+const getEventsFailureAction = () => ({ type: states.GET_UPCOMING_EVENTS.failure });
 const getEventsSuccessAction = ({ upcomingEvents }) => ({
-    type: states.GET_UPCOMING_EVENTS_SUCCESS,
+    type: states.GET_UPCOMING_EVENTS.success,
     upcomingEvents,
 });
 
@@ -35,6 +30,5 @@ const getEvents = ({ position }) => async (dispatch, getState) => {
 };
 
 export default {
-    states,
     getEvents,
 };

@@ -1,4 +1,4 @@
-import MapActions from 'actions/Map.actions';
+import states from 'constants/states.constants';
 
 const initialState = {
     currentPosition: {},
@@ -7,7 +7,7 @@ const initialState = {
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case MapActions.states.GET_CURRENT_POSITION_SUCCESS:
+        case states.GET_CURRENT_POSITION.success:
             return {
                 ...state,
                 currentPosition: {
@@ -16,7 +16,7 @@ const appReducer = (state = initialState, action) => {
                 },
                 zoom: 14,
             };
-        case MapActions.states.UPDATE_CURRENT_POSITION:
+        case states.UPDATE_CURRENT_POSITION:
             return {
                 ...state,
                 currentPosition: action.position,
