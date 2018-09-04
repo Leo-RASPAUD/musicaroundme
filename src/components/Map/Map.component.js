@@ -34,9 +34,9 @@ class Map extends React.PureComponent {
         classes: PropTypes.object.isRequired,
         upcomingEvents: PropTypes.array.isRequired,
         zoom: PropTypes.number.isRequired,
-        getEvents: PropTypes.func.isRequired,
         getCurrentPosition: PropTypes.func.isRequired,
         updateCurrentPosition: PropTypes.func.isRequired,
+        onDragEnd: PropTypes.func.isRequired,
     };
 
     constructor() {
@@ -44,17 +44,6 @@ class Map extends React.PureComponent {
         this.map = {};
         this.searchBox = {};
     }
-
-    getEvents = () => {
-        const { getEvents, updateCurrentPosition } = this.props;
-        const center = getPosition(this.map.getCenter());
-        const position = {
-            lat: center.lat,
-            lng: center.lng,
-        };
-        getEvents({ position });
-        updateCurrentPosition({ position });
-    };
 
     onMapMounted = ref => {
         this.map = ref;
@@ -71,13 +60,20 @@ class Map extends React.PureComponent {
     };
 
     render() {
-        const { classes, position, zoom, upcomingEvents, getCurrentPosition } = this.props;
+        const {
+            classes,
+            position,
+            zoom,
+            upcomingEvents,
+            getCurrentPosition,
+            onDragEnd,
+        } = this.props;
         return (
             <GoogleMap
                 center={position}
                 zoom={zoom}
                 options={defaultOptions}
-                onDragEnd={this.getEvents}
+                onDragEnd={() => onDragEnd({ center: getPosition(this.map.getCenter()) })}
                 onBoundsChanged={this.onBoundsChanged}
                 ref={this.onMapMounted}
             >

@@ -47,7 +47,6 @@ class App extends React.PureComponent {
             message,
             snackbarDuration,
         } = this.props;
-        console.log(message);
         return (
             <Snackbar
                 anchorOrigin={{
