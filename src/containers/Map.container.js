@@ -35,6 +35,21 @@ class MapContainer extends React.PureComponent {
         updateCurrentPosition: PropTypes.func.isRequired,
     };
 
+    onDragEnd = ({ center }) => {
+        const { getEvents, updateCurrentPosition, position } = this.props;
+        if (
+            Math.abs(center.lat - position.lat) > 0.1 ||
+            Math.abs(center.lng - position.lng) > 0.1
+        ) {
+            const newPosition = {
+                lat: center.lat,
+                lng: center.lng,
+            };
+            getEvents({ position: newPosition });
+            updateCurrentPosition({ position: newPosition });
+        }
+    };
+
     render() {
         const {
             props: {
@@ -54,6 +69,7 @@ class MapContainer extends React.PureComponent {
                 upcomingEvents={upcomingEvents}
                 position={position}
                 zoom={zoom}
+                onDragEnd={this.onDragEnd}
                 getEvents={getEvents}
                 updateCurrentPosition={updateCurrentPosition}
             />
