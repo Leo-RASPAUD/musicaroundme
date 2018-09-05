@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { AppBar, CircularProgress } from '@material-ui/core';
 import AppToolbar from 'components/AppToolbar/AppToolbar.component';
-import Router from 'components/Router/Router.component';
+import Router from 'containers/Router.container';
 import Snackbar from 'containers/Snackbar.container';
 import styles from './MusicAroundMe.styles';
 

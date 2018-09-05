@@ -1,5 +1,8 @@
 import states from 'constants/states.constants';
+import { push } from 'react-router-redux';
+import routes from 'utils/routes';
 
+const goToHome = () => push(routes.home);
 const updateCurrentPositionAction = ({ position }) => ({
     type: states.UPDATE_CURRENT_POSITION,
     position,
@@ -14,26 +17,36 @@ const getCurrentPositionLoadingFailure = ({ message }) => ({
     message,
 });
 
-const getCurrentPosition = () => async dispatch => {
+const getCurrentPosition = ({ redirectToHome }) => async dispatch => {
     dispatch(getCurrentPositionLoading());
     try {
-        const currentPosition = await new Promise((resolve, reject) => {
-            navigator.geolocation.getCurrentPosition(
-                result => {
-                    const {
-                        coords: { latitude, longitude },
-                    } = result;
-                    resolve({
-                        lat: latitude,
-                        lng: longitude,
-                    });
-                },
-                () => {
-                    reject(new Error('You need to allow location tracking to use this website.'));
-                },
-            );
+        // const currentPosition = await new Promise((resolve, reject) => {
+        const currentPosition = await new Promise(resolve => {
+            resolve({
+                lat: 10,
+                lng: 10,
+            });
+            // navigator.geolocation.getCurrentPosition(
+            //     result => {
+            //         const {
+            //             coords: { latitude, longitude },
+            //         } = result;
+            //         resolve({
+            //             lat: latitude,
+            //             lng: longitude,
+            //         });
+            //     },
+            //     () => {
+            // reject(new Error(
+            //    'You need to allow location tracking to use this website.'
+            // ));
+            //     },
+            // );
         });
         dispatch(getCurrentPositionLoadingSuccess({ currentPosition }));
+        if (redirectToHome) {
+            dispatch(goToHome());
+        }
     } catch (error) {
         dispatch(getCurrentPositionLoadingFailure({ message: error.message }));
     }

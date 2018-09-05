@@ -6,7 +6,7 @@ import mapActions from 'actions/Map.actions';
 import GetCurrentInformation from 'components/GetCurrentInformation/GetCurrentInformation.component';
 
 const mapDispatchToProps = dispatch => ({
-    getCurrentPosition: () => dispatch(mapActions.getCurrentPosition()),
+    getCurrentPosition: () => dispatch(mapActions.getCurrentPosition({ redirectToHome: true })),
 });
 
 @withRouter

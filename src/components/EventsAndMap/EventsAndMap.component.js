@@ -7,12 +7,12 @@ import { withStyles } from '@material-ui/core/styles';
 import styles from './EventsAndMap.styles';
 
 const EventsAndMap = props => {
-    const { classes, currentPosition } = props;
+    const { classes } = props;
     return (
         <Grid container className={classes.root} spacing={16}>
             <Map />
             <Grid item xs={12} sm={3}>
-                <Events position={currentPosition} />
+                <Events />
             </Grid>
         </Grid>
     );
@@ -20,7 +20,6 @@ const EventsAndMap = props => {
 
 EventsAndMap.propTypes = {
     classes: PropTypes.object.isRequired,
-    currentPosition: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(EventsAndMap);

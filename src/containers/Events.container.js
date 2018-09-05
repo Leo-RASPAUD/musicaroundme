@@ -9,6 +9,7 @@ import MapActions from 'actions/Map.actions';
 const mapStateToProps = state => ({
     loading: state.events.loading,
     upcomingEvents: state.events.upcomingEvents,
+    position: state.map.currentPosition,
 });
 
 const mapDispatchToProps = dispatch => ({
