@@ -5,8 +5,9 @@ import { Grid, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import GpsFixed from '@material-ui/icons/GpsFixed';
 import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import MapControlCurrentPosition from 'components/MapControlCurrentPosition/MapControlCurrentPosition.component';
+import EventMarkers from 'components/EventMarkers/EventMarkers.component';
 import styles from './Map.styles';
 
 const defaultOptions = {
@@ -89,14 +90,7 @@ class Map extends React.PureComponent {
                 >
                     <input type="text" placeholder="Search..." className={classes.search} />
                 </SearchBox>
-                {upcomingEvents.map((event, index) => (
-                    <Marker
-                        key={event.id}
-                        position={event.location}
-                        label={`${index}`}
-                        animation={google.maps.Animation.DROP}
-                    />
-                ))}
+                <EventMarkers upcomingEvents={upcomingEvents} />
             </GoogleMap>
         );
     }

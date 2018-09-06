@@ -3,7 +3,7 @@ service: MusicAroundMe
 provider:
     name: aws
     stage: PROD
-    memorySize: 256
+    memorySize: 3008
     timeout: 30
     runtime: nodejs8.10
     region: ap-southeast-2
@@ -14,7 +14,7 @@ functions:
     getEvents:
         handler: getEvents/handler.getEvents
         environment:
-            API_KEY: jjTwg0sS5Y4glVjE
+            API_KEY: jhDKbPlJL4AVGmUTxxA7701jnK2vcOEu
         events:
             - http:
                   path: getEvents
