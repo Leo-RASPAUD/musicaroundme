@@ -9,6 +9,7 @@ import actions from 'actions/Map.actions';
 const mapStateToProps = state => ({
     position: state.map.currentPosition,
     zoom: state.map.zoom,
+    event: state.map.event,
     gmapsApiKey: state.app.configuration.gmapsApiKey,
     upcomingEvents: state.events.upcomingEvents,
 });
@@ -17,6 +18,8 @@ const mapDispatchToProps = dispatch => ({
     getCurrentPosition: () => dispatch(actions.getCurrentPosition()),
     updateCurrentPosition: ({ position }) => dispatch(actions.updateCurrentPosition({ position })),
     getEvents: ({ position }) => dispatch(eventsActions.getEvents({ position })),
+    zoomOnEvent: ({ position, zoom, event }) =>
+        dispatch(eventsActions.zoomOnEvent({ position, zoom, event })),
 });
 
 @withRouter
@@ -32,7 +35,21 @@ class MapContainer extends React.PureComponent {
         upcomingEvents: PropTypes.array.isRequired,
         getEvents: PropTypes.func.isRequired,
         getCurrentPosition: PropTypes.func.isRequired,
+        zoomOnEvent: PropTypes.func.isRequired,
         updateCurrentPosition: PropTypes.func.isRequired,
+    };
+
+    componentDidUpdate = prevProps => {
+        const {
+            props: { position, getEvents },
+        } = this;
+        const { lat, lng } = position;
+        if (
+            Math.abs(prevProps.position.lat - lat) > 0.5 ||
+            Math.abs(prevProps.position.lng - lng) > 0.5
+        ) {
+            getEvents({ position });
+        }
     };
 
     onDragEnd = ({ center }) => {
@@ -60,6 +77,7 @@ class MapContainer extends React.PureComponent {
                 zoom,
                 getEvents,
                 updateCurrentPosition,
+                zoomOnEvent,
             },
         } = this;
         return (
@@ -69,6 +87,7 @@ class MapContainer extends React.PureComponent {
                 upcomingEvents={upcomingEvents}
                 position={position}
                 zoom={zoom}
+                zoomOnEvent={zoomOnEvent}
                 onDragEnd={this.onDragEnd}
                 getEvents={getEvents}
                 updateCurrentPosition={updateCurrentPosition}

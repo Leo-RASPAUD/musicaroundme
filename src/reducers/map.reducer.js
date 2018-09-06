@@ -3,6 +3,7 @@ import states from 'constants/states.constants';
 const initialState = {
     currentPosition: {},
     zoom: 10,
+    event: {},
 };
 
 const appReducer = (state = initialState, action) => {
@@ -20,6 +21,13 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentPosition: action.position,
+            };
+        case states.ZOOM_ON_EVENT:
+            return {
+                ...state,
+                zoom: action.zoom || state.zoom,
+                currentPosition: action.position,
+                event: action.event,
             };
         default:
             return state;

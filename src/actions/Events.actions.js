@@ -2,6 +2,12 @@ import events from 'services/events';
 import snackbarUtils from 'utils/snackbarUtils';
 import states from 'constants/states.constants';
 
+const zoomOnEventAction = ({ position, zoom, event }) => ({
+    type: states.ZOOM_ON_EVENT,
+    position,
+    zoom,
+    event,
+});
 const getEventsLoadingAction = () => ({ type: states.GET_UPCOMING_EVENTS.loading });
 const getEventsFailureAction = () => ({ type: states.GET_UPCOMING_EVENTS.failure });
 const getEventsSuccessAction = ({ upcomingEvents }) => ({
@@ -29,6 +35,11 @@ const getEvents = ({ position }) => async (dispatch, getState) => {
     }
 };
 
+const zoomOnEvent = ({ position, zoom, event }) => dispatch => {
+    dispatch(zoomOnEventAction({ position, zoom, event }));
+};
+
 export default {
     getEvents,
+    zoomOnEvent,
 };

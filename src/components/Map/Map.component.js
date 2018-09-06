@@ -38,6 +38,7 @@ class Map extends React.PureComponent {
         getCurrentPosition: PropTypes.func.isRequired,
         updateCurrentPosition: PropTypes.func.isRequired,
         onDragEnd: PropTypes.func.isRequired,
+        zoomOnEvent: PropTypes.func.isRequired,
     };
 
     constructor() {
@@ -68,6 +69,7 @@ class Map extends React.PureComponent {
             upcomingEvents,
             getCurrentPosition,
             onDragEnd,
+            zoomOnEvent,
         } = this.props;
         return (
             <GoogleMap
@@ -90,7 +92,7 @@ class Map extends React.PureComponent {
                 >
                     <input type="text" placeholder="Search..." className={classes.search} />
                 </SearchBox>
-                <EventMarkers upcomingEvents={upcomingEvents} />
+                <EventMarkers upcomingEvents={upcomingEvents} zoomOnEvent={zoomOnEvent} />
             </GoogleMap>
         );
     }

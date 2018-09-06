@@ -3,9 +3,10 @@ import { push } from 'react-router-redux';
 import routes from 'utils/routes';
 
 const goToHome = () => push(routes.home);
-const updateCurrentPositionAction = ({ position }) => ({
+const updateCurrentPositionAction = ({ position, zoom }) => ({
     type: states.UPDATE_CURRENT_POSITION,
     position,
+    zoom,
 });
 const getCurrentPositionLoading = () => ({ type: states.GET_CURRENT_POSITION.loading });
 const getCurrentPositionLoadingSuccess = ({ currentPosition }) => ({
@@ -45,8 +46,8 @@ const getCurrentPosition = ({ redirectToHome }) => async dispatch => {
     }
 };
 
-const updateCurrentPosition = ({ position }) => async dispatch => {
-    dispatch(updateCurrentPositionAction({ position }));
+const updateCurrentPosition = ({ position, zoom }) => async dispatch => {
+    dispatch(updateCurrentPositionAction({ position, zoom }));
 };
 
 export default {

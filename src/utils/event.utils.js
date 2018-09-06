@@ -4,9 +4,9 @@ const formatEvents = events =>
             const { location } = event._embedded.venues[0];
             if (location) {
                 return {
+                    ...event,
                     lat: +location.latitude,
                     lng: +location.longitude,
-                    id: event.id,
                 };
             }
             return null;
