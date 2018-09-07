@@ -9,8 +9,19 @@ export default theme => ({
         maxHeight: '95vh',
         paddingTop: 2 * theme.spacing.unit,
     },
-    item: {
-        margin: 10,
-        padding: 10,
+    avatar: {
+        ...cssConstants.display.flex,
+    },
+    avatarDetails: {
+        ...cssConstants.display.flex,
+        ...cssConstants.flexDirection.column,
+        marginLeft: theme.spacing.unit,
+        flex: 1,
+    },
+    panel: {
+        margin: theme.spacing.unit,
+    },
+    panelRoot: {
+        padding: `0 ${2 * theme.spacing.unit}px`,
     },
 });
