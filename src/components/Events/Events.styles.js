@@ -21,6 +21,9 @@ export default theme => ({
     panel: {
         margin: theme.spacing.unit,
     },
+    chip: {
+        paddingRight: '0 !important',
+    },
     panelRoot: {
         padding: `0 ${2 * theme.spacing.unit}px`,
     },
