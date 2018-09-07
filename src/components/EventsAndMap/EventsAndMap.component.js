@@ -18,7 +18,7 @@ const EventsAndMap = props => {
                 Powered by
                 <img
                     alt="ticketmasterLogo"
-                    src="https://s3-ap-southeast-2.amazonaws.com/musicaroundme/ticketmaster.png"
+                    src="https://s3-ap-southeast-2.amazonaws.com/musicaroundme.io/ticketmaster.png"
                 />
             </Grid>
         </Grid>
