@@ -1,9 +1,5 @@
-image: node:alpine
+image: node:10
 pipelines:
-    default:
-        - step:
-              script:
-                  - yarn
     branches:
         'master':
             - step:
