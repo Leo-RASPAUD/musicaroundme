@@ -10,7 +10,10 @@ const getEventsSuccessAction = ({ upcomingEvents }) => ({
     upcomingEvents,
 });
 
-const getEvents = ({ position, venueId, classificationId }) => async (dispatch, getState) => {
+const getEvents = ({ position, venueId, classificationId, month }) => async (
+    dispatch,
+    getState,
+) => {
     const errorMessage = 'Could not get the events';
     const {
         app: {
@@ -25,6 +28,7 @@ const getEvents = ({ position, venueId, classificationId }) => async (dispatch, 
             musicApiKey,
             venueId,
             classificationId,
+            month,
         });
         if (result.status !== 200) {
             dispatch(snackbarUtils.displaySnackbarError({ message: errorMessage }));

@@ -8,8 +8,10 @@ import eventActions from 'actions/Events.actions';
 
 const mapStateToProps = state => ({
     loading: state.searchOptions.loading,
+    loadingEvents: state.events.loading,
     classifications: state.searchOptions.classifications,
     selectedClassificationId: state.searchOptions.selectedClassificationId,
+    selectedMonth: state.searchOptions.selectedMonth,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,6 +24,14 @@ const mapDispatchToProps = dispatch => ({
         );
         dispatch(actions.selectClassification({ classificationId: event.target.value }));
     },
+    selectMonth: event => {
+        dispatch(
+            eventActions.getEvents({
+                month: event.target.value,
+            }),
+        );
+        dispatch(actions.selectMonth({ selectedMonth: event.target.value }));
+    },
 });
 
 @withRouter
@@ -33,9 +43,12 @@ class SearchOptionsContainer extends React.PureComponent {
     static propTypes = {
         getClassifications: PropTypes.func.isRequired,
         loading: PropTypes.array.isRequired,
+        loadingEvents: PropTypes.array.isRequired,
         classifications: PropTypes.array.isRequired,
         selectedClassificationId: PropTypes.string.isRequired,
+        selectedMonth: PropTypes.string.isRequired,
         selectClassification: PropTypes.func.isRequired,
+        selectMonth: PropTypes.func.isRequired,
     };
 
     componentDidMount = () => {
@@ -46,16 +59,22 @@ class SearchOptionsContainer extends React.PureComponent {
     render() {
         const {
             loading,
+            loadingEvents,
             classifications,
             selectedClassificationId,
+            selectedMonth,
             selectClassification,
+            selectMonth,
         } = this.props;
         return (
             <SearchOptions
                 loading={loading}
+                loadingEvents={loadingEvents}
                 classifications={classifications}
                 selectedClassificationId={selectedClassificationId}
                 selectClassification={selectClassification}
+                selectedMonth={selectedMonth}
+                selectMonth={selectMonth}
             />
         );
     }

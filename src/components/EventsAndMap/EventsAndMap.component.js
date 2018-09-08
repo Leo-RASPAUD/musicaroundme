@@ -9,19 +9,21 @@ import styles from './EventsAndMap.styles';
 const EventsAndMap = props => {
     const { classes } = props;
     return (
-        <Grid container className={classes.root} spacing={16}>
-            <Map />
-            <Grid item xs={6} sm={3}>
-                <Events />
+        <div>
+            <Grid container className={classes.root} spacing={16}>
+                <Map />
+                <Grid item xs={12} sm={3} className={classes.events}>
+                    <Events />
+                </Grid>
+                <Grid item xs={12} className={classes.ticketmasterLogo}>
+                    Powered by
+                    <img
+                        alt="ticketmasterLogo"
+                        src="https://s3-ap-southeast-2.amazonaws.com/musicaroundme.io/ticketmaster.png"
+                    />
+                </Grid>
             </Grid>
-            <Grid item xs={12} className={classes.ticketmasterLogo}>
-                Powered by
-                <img
-                    alt="ticketmasterLogo"
-                    src="https://s3-ap-southeast-2.amazonaws.com/musicaroundme.io/ticketmaster.png"
-                />
-            </Grid>
-        </Grid>
+        </div>
     );
 };
 

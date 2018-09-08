@@ -6,6 +6,10 @@ const selectClassificationAction = ({ classificationId }) => ({
     type: states.SELECT_CLASSIFICATION,
     classificationId,
 });
+const selectMonthAction = ({ selectedMonth }) => ({
+    type: states.SELECT_MONTH,
+    selectedMonth,
+});
 
 const getClassificationsLoadingAction = () => ({ type: states.GET_CLASSIFICATIONS.loading });
 const getClassificationsFailureAction = () => ({ type: states.GET_CLASSIFICATIONS.failure });
@@ -38,8 +42,12 @@ const getClassifications = () => async (dispatch, getState) => {
 const selectClassification = ({ classificationId }) => dispatch => {
     dispatch(selectClassificationAction({ classificationId }));
 };
+const selectMonth = ({ selectedMonth }) => dispatch => {
+    dispatch(selectMonthAction({ selectedMonth }));
+};
 
 export default {
     getClassifications,
     selectClassification,
+    selectMonth,
 };

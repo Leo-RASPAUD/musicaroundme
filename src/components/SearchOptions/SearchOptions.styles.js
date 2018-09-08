@@ -15,4 +15,10 @@ export default theme => ({
     card: {
         ...cssConstants.cursor.default,
     },
+    root: {
+        display: 'flex',
+        minHeight: 8 * theme.spacing.unit,
+        paddingTop: 2 * theme.spacing.unit,
+        ...cssConstants.justifyContent.spaceAround,
+    },
 });

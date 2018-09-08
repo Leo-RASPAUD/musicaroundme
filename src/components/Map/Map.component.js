@@ -22,8 +22,8 @@ const getPosition = position => JSON.parse(JSON.stringify(position));
     googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${
         props.gmapsApiKey
     }&libraries=geometry,drawing,places`,
-    loadingElement: <Grid item xs={12} sm={9} style={{ height: '95vh' }} />,
-    containerElement: <Grid item xs={12} sm={9} style={{ height: '95vh' }} />,
+    loadingElement: <Grid item xs={12} sm={9} style={{ height: '90vh' }} />,
+    containerElement: <Grid item xs={12} sm={9} style={{ height: '90vh' }} />,
     mapElement: <div style={{ height: '100%' }} />,
 }))
 @withScriptjs
@@ -90,7 +90,11 @@ class Map extends React.PureComponent {
                     onPlacesChanged={this.onPlacesChanged}
                     ref={this.onSearchBoxMounted}
                 >
-                    <input type="text" placeholder="Search..." className={classes.search} />
+                    <input
+                        type="text"
+                        placeholder="Search location..."
+                        className={classes.search}
+                    />
                 </SearchBox>
                 <VenueMarkers venues={venues} zoomOnVenue={zoomOnVenue} />
             </GoogleMap>

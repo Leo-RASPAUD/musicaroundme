@@ -15,6 +15,7 @@ const states = {
     ...generateStaticState('SELECT_EVENT'),
     ...generateStaticState('ZOOM_ON_VENUE'),
     ...generateStaticState('SELECT_CLASSIFICATION'),
+    ...generateStaticState('SELECT_MONTH'),
 
     ...generateAsyncStates('GET_CURRENT_POSITION'),
     ...generateAsyncStates('GET_UPCOMING_EVENTS'),

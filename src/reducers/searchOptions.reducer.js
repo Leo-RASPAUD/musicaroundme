@@ -1,8 +1,10 @@
 import states from 'constants/states.constants';
+import moment from 'moment';
 
 const initialState = {
     classifications: [],
     selectedClassificationId: 'All',
+    selectedMonth: moment().format('MMMM'),
     loading: [],
 };
 
@@ -29,6 +31,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedClassificationId: action.classificationId,
+            };
+        case states.SELECT_MONTH:
+            return {
+                ...state,
+                selectedMonth: action.selectedMonth,
             };
         default:
             return state;

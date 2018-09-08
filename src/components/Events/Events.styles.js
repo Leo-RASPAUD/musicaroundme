@@ -6,9 +6,7 @@ export default theme => ({
         ...cssConstants.flexDirection.column,
         flex: 1,
         ...cssConstants.overflow.auto,
-        maxHeight: '95vh',
-        paddingTop: 2 * theme.spacing.unit,
-        paddingBottom: theme.spacing.unit,
+        maxHeight: '100%',
     },
     avatar: {
         ...cssConstants.display.flex,
