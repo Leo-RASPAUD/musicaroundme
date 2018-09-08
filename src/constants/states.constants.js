@@ -14,10 +14,12 @@ const states = {
     ...generateStaticState('REQUEST_SHOW_SNACKBAR'),
     ...generateStaticState('SELECT_EVENT'),
     ...generateStaticState('ZOOM_ON_VENUE'),
+    ...generateStaticState('SELECT_CLASSIFICATION'),
 
     ...generateAsyncStates('GET_CURRENT_POSITION'),
     ...generateAsyncStates('GET_UPCOMING_EVENTS'),
     ...generateAsyncStates('GET_CONFIGURATION'),
+    ...generateAsyncStates('GET_CLASSIFICATIONS'),
 };
 
 export default states;

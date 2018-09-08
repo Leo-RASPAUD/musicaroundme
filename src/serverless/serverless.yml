@@ -19,6 +19,21 @@ functions:
             - http:
                   path: events/event
                   method: get
+                  request:
+                      parameters:
+                          paths:
+                              jobId: true
+                  private: true
+                  cors:
+                      origin: '*'
+    getClassifications:
+        handler: getClassifications/handler.getClassifications
+        environment:
+            API_KEY: jhDKbPlJL4AVGmUTxxA7701jnK2vcOEu
+        events:
+            - http:
+                  path: classifications
+                  method: get
                   private: true
                   cors:
                       origin: '*'

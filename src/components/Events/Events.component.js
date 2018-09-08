@@ -16,6 +16,7 @@ import { Facebook } from 'react-content-loader';
 import moment from 'moment';
 import { FaTicketAlt, FaWikipediaW, FaYoutube, FaFacebookF } from 'react-icons/fa';
 import utils from 'utils/event.utils';
+import SearchOptions from 'containers/SearchOptions.container';
 import styles from './Events.styles';
 
 const { formatEvents } = utils;
@@ -49,6 +50,7 @@ class Events extends React.Component {
         const events = formatEvents(upcomingEvents);
         return (
             <div className={classes.root}>
+                <SearchOptions />
                 {loading.length > 0 && <Facebook />}
                 {loading.length === 0 && upcomingEvents.length === 0 && <div>No events</div>}
                 {loading.length === 0 &&

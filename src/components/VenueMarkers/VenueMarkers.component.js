@@ -25,7 +25,7 @@ const VenueMarkers = props => {
             {venue.selected && (
                 <OverlayView
                     mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-                    position={{ lat: venue.lat + 0.0005, lng: venue.lng + 0.0005 }}
+                    position={{ lat: venue.lat + 0.005, lng: venue.lng + 0.005 }}
                 >
                     <VenueInfo venue={venue} />
                 </OverlayView>

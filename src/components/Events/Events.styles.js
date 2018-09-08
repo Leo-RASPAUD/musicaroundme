@@ -8,6 +8,7 @@ export default theme => ({
         ...cssConstants.overflow.auto,
         maxHeight: '95vh',
         paddingTop: 2 * theme.spacing.unit,
+        paddingBottom: theme.spacing.unit,
     },
     avatar: {
         ...cssConstants.display.flex,

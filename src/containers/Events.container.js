@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getEvents: ({ position }) => dispatch(actions.getEvents({ position })),
+    getEvents: ({ position, venueId }) => dispatch(actions.getEvents({ position, venueId })),
     selectEvent: ({ eventId }) => dispatch(actions.selectEvent({ eventId })),
     zoomOnVenue: ({ position, zoom, venueId }) =>
         dispatch(venuesActions.zoomOnVenue({ position, zoom, venueId })),
@@ -42,13 +42,22 @@ class EventsContainer extends React.PureComponent {
     };
 
     render() {
-        const { upcomingEvents, loading, zoomOnVenue, selectEvent } = this.props;
+        const {
+            upcomingEvents,
+            loading,
+            zoomOnVenue,
+            selectEvent,
+            getEvents,
+            position,
+        } = this.props;
         return (
             <Events
                 loading={loading}
                 upcomingEvents={upcomingEvents}
                 zoomOnVenue={zoomOnVenue}
                 selectEvent={selectEvent}
+                getEvents={getEvents}
+                position={position}
             />
         );
     }

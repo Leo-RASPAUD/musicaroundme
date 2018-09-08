@@ -10,16 +10,22 @@ const getEventsSuccessAction = ({ upcomingEvents }) => ({
     upcomingEvents,
 });
 
-const getEvents = ({ position }) => async (dispatch, getState) => {
+const getEvents = ({ position, venueId, classificationId }) => async (dispatch, getState) => {
     const errorMessage = 'Could not get the events';
     const {
         app: {
             configuration: { musicApiKey },
         },
+        map: { currentPosition },
     } = getState();
     dispatch(getEventsLoadingAction());
     try {
-        const result = await events.getEvents({ position, musicApiKey });
+        const result = await events.getEvents({
+            position: position || currentPosition,
+            musicApiKey,
+            venueId,
+            classificationId,
+        });
         if (result.status !== 200) {
             dispatch(snackbarUtils.displaySnackbarError({ message: errorMessage }));
         } else {
