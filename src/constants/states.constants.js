@@ -12,7 +12,7 @@ const states = {
     ...generateStaticState('UPDATE_CURRENT_POSITION'),
     ...generateStaticState('CLOSE_SNACKBAR'),
     ...generateStaticState('REQUEST_SHOW_SNACKBAR'),
-    ...generateStaticState('ZOOM_ON_EVENT'),
+    ...generateAsyncStates('GET_VENUE'),
     ...generateAsyncStates('GET_CURRENT_POSITION'),
     ...generateAsyncStates('GET_UPCOMING_EVENTS'),
     ...generateAsyncStates('GET_CONFIGURATION'),

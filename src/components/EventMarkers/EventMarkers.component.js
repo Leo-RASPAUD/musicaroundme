@@ -6,7 +6,7 @@ import utils from 'utils/event.utils';
 const { formatEvents } = utils;
 
 const EventMarkers = props => {
-    const { upcomingEvents, zoomOnEvent } = props;
+    const { upcomingEvents, zoomOnVenue } = props;
     const events = formatEvents(upcomingEvents);
     return events.map(event => (
         <Marker
@@ -14,10 +14,10 @@ const EventMarkers = props => {
             position={event}
             animation={google.maps.Animation.DROP}
             onClick={() =>
-                zoomOnEvent({
+                zoomOnVenue({
                     position: { lat: event.lat, lng: event.lng },
                     zoom: 16,
-                    event,
+                    venueId: event._embedded.venues[0].id,
                 })
             }
         />
@@ -26,7 +26,7 @@ const EventMarkers = props => {
 
 EventMarkers.propTypes = {
     upcomingEvents: PropTypes.array.isRequired,
-    zoomOnEvent: PropTypes.func.isRequired,
+    zoomOnVenue: PropTypes.func.isRequired,
 };
 
 export default EventMarkers;

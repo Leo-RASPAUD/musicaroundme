@@ -5,6 +5,7 @@ import React from 'react';
 import eventsActions from 'actions/Events.actions';
 import Map from 'components/Map/Map.component';
 import actions from 'actions/Map.actions';
+import venuesActions from 'actions/Venues.actions';
 
 const mapStateToProps = state => ({
     position: state.map.currentPosition,
@@ -18,8 +19,8 @@ const mapDispatchToProps = dispatch => ({
     getCurrentPosition: () => dispatch(actions.getCurrentPosition()),
     updateCurrentPosition: ({ position }) => dispatch(actions.updateCurrentPosition({ position })),
     getEvents: ({ position }) => dispatch(eventsActions.getEvents({ position })),
-    zoomOnEvent: ({ position, zoom, event }) =>
-        dispatch(eventsActions.zoomOnEvent({ position, zoom, event })),
+    zoomOnVenue: ({ position, zoom, venueId }) =>
+        dispatch(venuesActions.zoomOnVenue({ position, zoom, venueId })),
 });
 
 @withRouter
@@ -35,7 +36,7 @@ class MapContainer extends React.PureComponent {
         upcomingEvents: PropTypes.array.isRequired,
         getEvents: PropTypes.func.isRequired,
         getCurrentPosition: PropTypes.func.isRequired,
-        zoomOnEvent: PropTypes.func.isRequired,
+        zoomOnVenue: PropTypes.func.isRequired,
         updateCurrentPosition: PropTypes.func.isRequired,
     };
 
@@ -77,7 +78,7 @@ class MapContainer extends React.PureComponent {
                 zoom,
                 getEvents,
                 updateCurrentPosition,
-                zoomOnEvent,
+                zoomOnVenue,
             },
         } = this;
         return (
@@ -87,7 +88,7 @@ class MapContainer extends React.PureComponent {
                 upcomingEvents={upcomingEvents}
                 position={position}
                 zoom={zoom}
-                zoomOnEvent={zoomOnEvent}
+                zoomOnVenue={zoomOnVenue}
                 onDragEnd={this.onDragEnd}
                 getEvents={getEvents}
                 updateCurrentPosition={updateCurrentPosition}

@@ -17,8 +17,24 @@ functions:
             API_KEY: jhDKbPlJL4AVGmUTxxA7701jnK2vcOEu
         events:
             - http:
-                  path: getEvents
+                  path: events/event
                   method: get
                   private: true
                   cors:
                       origin: '*'
+
+    getVenue:
+        handler: getVenue/handler.getVenue
+        environment:
+            API_KEY: jhDKbPlJL4AVGmUTxxA7701jnK2vcOEu
+        events:
+            - http:
+                  path: venue/{venueId}
+                  method: get
+                  private: true
+                  cors:
+                      origin: '*'
+                  request:
+                      parameters:
+                          paths:
+                              venueId: true

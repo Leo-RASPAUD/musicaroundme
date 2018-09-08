@@ -24,7 +24,7 @@ const { formatEvents } = utils;
 class Events extends React.Component {
     static propTypes = {
         classes: PropTypes.object.isRequired,
-        zoomOnEvent: PropTypes.func.isRequired,
+        zoomOnVenue: PropTypes.func.isRequired,
         loading: PropTypes.array.isRequired,
         upcomingEvents: PropTypes.array.isRequired,
     };
@@ -44,7 +44,7 @@ class Events extends React.Component {
 
     render() {
         const { expanded } = this.state;
-        const { classes, upcomingEvents, loading, zoomOnEvent } = this.props;
+        const { classes, upcomingEvents, loading, zoomOnVenue } = this.props;
         const events = formatEvents(upcomingEvents);
         return (
             <div className={classes.root}>
@@ -65,10 +65,10 @@ class Events extends React.Component {
                             <ExpansionPanel
                                 key={event.id}
                                 onClick={() =>
-                                    zoomOnEvent({
+                                    zoomOnVenue({
                                         position: { lat: event.lat, lng: event.lng },
                                         zoom: 16,
-                                        event,
+                                        venueId: event._embedded.venues[0].id,
                                     })
                                 }
                                 className={classes.panel}
