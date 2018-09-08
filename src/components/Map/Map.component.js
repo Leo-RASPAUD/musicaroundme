@@ -7,7 +7,7 @@ import GpsFixed from '@material-ui/icons/GpsFixed';
 import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import MapControlCurrentPosition from 'components/MapControlCurrentPosition/MapControlCurrentPosition.component';
-import EventMarkers from 'components/EventMarkers/EventMarkers.component';
+import VenueMarkers from 'components/VenueMarkers/VenueMarkers.component';
 import styles from './Map.styles';
 
 const defaultOptions = {
@@ -33,12 +33,12 @@ class Map extends React.PureComponent {
     static propTypes = {
         position: PropTypes.object.isRequired,
         classes: PropTypes.object.isRequired,
-        upcomingEvents: PropTypes.array.isRequired,
         zoom: PropTypes.number.isRequired,
         getCurrentPosition: PropTypes.func.isRequired,
         updateCurrentPosition: PropTypes.func.isRequired,
         onDragEnd: PropTypes.func.isRequired,
         zoomOnVenue: PropTypes.func.isRequired,
+        venues: PropTypes.array.isRequired,
     };
 
     constructor() {
@@ -66,7 +66,7 @@ class Map extends React.PureComponent {
             classes,
             position,
             zoom,
-            upcomingEvents,
+            venues,
             getCurrentPosition,
             onDragEnd,
             zoomOnVenue,
@@ -92,7 +92,7 @@ class Map extends React.PureComponent {
                 >
                     <input type="text" placeholder="Search..." className={classes.search} />
                 </SearchBox>
-                <EventMarkers upcomingEvents={upcomingEvents} zoomOnVenue={zoomOnVenue} />
+                <VenueMarkers venues={venues} zoomOnVenue={zoomOnVenue} />
             </GoogleMap>
         );
     }

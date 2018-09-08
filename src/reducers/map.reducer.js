@@ -21,7 +21,7 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 currentPosition: action.position,
             };
-        case states.GET_VENUE.success:
+        case states.ZOOM_ON_VENUE:
             return {
                 ...state,
                 zoom: action.zoom || state.zoom,

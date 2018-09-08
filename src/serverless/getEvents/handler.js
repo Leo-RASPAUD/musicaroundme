@@ -7,7 +7,7 @@ const corsHeaders = {
 };
 
 const BASE_EVENTS_URL = 'https://app.ticketmaster.com/discovery/v2/events.json';
-const DEFAULT_SIZE = 100;
+const DEFAULT_SIZE = 200;
 const DEFAULT_RADIUS = 20;
 
 const addRadius = `radius=${DEFAULT_RADIUS}&unit=km`;

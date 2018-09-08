@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
     zoom: state.map.zoom,
     event: state.map.event,
     gmapsApiKey: state.app.configuration.gmapsApiKey,
-    upcomingEvents: state.events.upcomingEvents,
+    venues: state.venues.items,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -33,7 +33,7 @@ class MapContainer extends React.PureComponent {
         position: PropTypes.object.isRequired,
         zoom: PropTypes.number.isRequired,
         gmapsApiKey: PropTypes.string.isRequired,
-        upcomingEvents: PropTypes.array.isRequired,
+        venues: PropTypes.array.isRequired,
         getEvents: PropTypes.func.isRequired,
         getCurrentPosition: PropTypes.func.isRequired,
         zoomOnVenue: PropTypes.func.isRequired,
@@ -73,22 +73,22 @@ class MapContainer extends React.PureComponent {
             props: {
                 getCurrentPosition,
                 gmapsApiKey,
-                upcomingEvents,
                 position,
                 zoom,
                 getEvents,
                 updateCurrentPosition,
                 zoomOnVenue,
+                venues,
             },
         } = this;
         return (
             <Map
                 getCurrentPosition={getCurrentPosition}
                 gmapsApiKey={gmapsApiKey}
-                upcomingEvents={upcomingEvents}
                 position={position}
                 zoom={zoom}
                 zoomOnVenue={zoomOnVenue}
+                venues={venues}
                 onDragEnd={this.onDragEnd}
                 getEvents={getEvents}
                 updateCurrentPosition={updateCurrentPosition}

@@ -1,28 +1,42 @@
 import states from 'constants/states.constants';
 
+const getVenuesFromEvents = event => {
+    const eventVenues = event._embedded.venues;
+    if (!eventVenues || eventVenues.length === 0) {
+        return null;
+    }
+    return eventVenues[0];
+};
+
+const removeDuplicatesName = (obj, pos, arr) =>
+    arr.map(mapObj => mapObj.name).indexOf(obj.name) === pos;
+
 const initialState = {
-    selectedVenue: {},
-    loading: [],
+    items: [],
 };
 
 const appReducer = (state = initialState, action) => {
     switch (action.type) {
-        case states.GET_VENUE.success:
+        case states.GET_UPCOMING_EVENTS.success:
             return {
                 ...state,
-                selectedVenue: action.venue,
-                loading: state.loading.slice(1) || [],
+                items: action.upcomingEvents.map(getVenuesFromEvents).filter(removeDuplicatesName),
             };
-        case states.GET_VENUE.failure:
+        case states.ZOOM_ON_VENUE:
             return {
                 ...state,
-                selectedVenue: {},
-                loading: state.loading.slice(1) || [],
-            };
-        case states.GET_VENUE.loading:
-            return {
-                ...state,
-                loading: state.loading.concat('loading'),
+                items: state.items.map(venue => {
+                    if (venue.id === action.venueId) {
+                        return {
+                            ...venue,
+                            selected: true,
+                        };
+                    }
+                    return {
+                        ...venue,
+                        selected: false,
+                    };
+                }),
             };
         default:
             return state;

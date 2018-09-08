@@ -24,11 +24,11 @@ const appReducer = (state = initialState, action) => {
                 upcomingEvents: [],
                 loading: state.loading.concat('loading'),
             };
-        case states.ZOOM_ON_EVENT:
+        case states.SELECT_EVENT:
             return {
                 ...state,
                 upcomingEvents: state.upcomingEvents.map(event => {
-                    if (event.id === action.event.id) {
+                    if (event.id === action.eventId) {
                         return {
                             ...event,
                             selected: true,
