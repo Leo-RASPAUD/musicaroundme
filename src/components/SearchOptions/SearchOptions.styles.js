@@ -15,10 +15,16 @@ export default theme => ({
     card: {
         ...cssConstants.cursor.default,
     },
+    textField: {
+        marginLeft: theme.spacing.unit,
+        marginRight: theme.spacing.unit,
+        width: 150,
+    },
     root: {
-        display: 'flex',
-        minHeight: 8 * theme.spacing.unit,
-        paddingTop: 2 * theme.spacing.unit,
-        ...cssConstants.justifyContent.spaceAround,
+        paddingTop: theme.spacing.unit,
+    },
+    search: {
+        ...cssConstants.textAlign.center,
+        padding: theme.spacing.unit,
     },
 });

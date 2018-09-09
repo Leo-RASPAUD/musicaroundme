@@ -4,6 +4,7 @@ const initialState = {
     classifications: [],
     selectedClassificationId: 'All',
     selectedMonth: 'All',
+    artist: '',
     loading: [],
 };
 
@@ -35,6 +36,11 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedMonth: action.selectedMonth,
+            };
+        case states.UPDATE_ARTIST:
+            return {
+                ...state,
+                artist: action.artist,
             };
         default:
             return state;

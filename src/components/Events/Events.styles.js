@@ -2,9 +2,6 @@ import cssConstants from 'constants/css.constants';
 
 export default theme => ({
     root: {
-        ...cssConstants.display.flex,
-        ...cssConstants.flexDirection.column,
-        flex: 1,
         ...cssConstants.overflow.auto,
         maxHeight: '100%',
     },

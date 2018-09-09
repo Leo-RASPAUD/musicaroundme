@@ -12,25 +12,20 @@ const mapStateToProps = state => ({
     classifications: state.searchOptions.classifications,
     selectedClassificationId: state.searchOptions.selectedClassificationId,
     selectedMonth: state.searchOptions.selectedMonth,
+    artist: state.searchOptions.artist,
 });
 
 const mapDispatchToProps = dispatch => ({
     getClassifications: () => dispatch(actions.getClassifications()),
+    updateArtist: event => dispatch(actions.updateArtist({ artist: event.target.value })),
     selectClassification: event => {
-        dispatch(
-            eventActions.getEvents({
-                classificationId: event.target.value === 'All' ? '' : event.target.value,
-            }),
-        );
         dispatch(actions.selectClassification({ classificationId: event.target.value }));
     },
     selectMonth: event => {
-        dispatch(
-            eventActions.getEvents({
-                month: event.target.value === 'All' ? '' : event.target.value,
-            }),
-        );
         dispatch(actions.selectMonth({ selectedMonth: event.target.value }));
+    },
+    search: () => {
+        dispatch(eventActions.getEvents({}));
     },
 });
 
@@ -49,6 +44,9 @@ class SearchOptionsContainer extends React.PureComponent {
         selectedMonth: PropTypes.string.isRequired,
         selectClassification: PropTypes.func.isRequired,
         selectMonth: PropTypes.func.isRequired,
+        updateArtist: PropTypes.func.isRequired,
+        search: PropTypes.func.isRequired,
+        artist: PropTypes.string.isRequired,
     };
 
     componentDidMount = () => {
@@ -65,6 +63,9 @@ class SearchOptionsContainer extends React.PureComponent {
             selectedMonth,
             selectClassification,
             selectMonth,
+            artist,
+            updateArtist,
+            search,
         } = this.props;
         return (
             <SearchOptions
@@ -75,6 +76,9 @@ class SearchOptionsContainer extends React.PureComponent {
                 selectClassification={selectClassification}
                 selectedMonth={selectedMonth}
                 selectMonth={selectMonth}
+                artist={artist}
+                search={search}
+                updateArtist={updateArtist}
             />
         );
     }

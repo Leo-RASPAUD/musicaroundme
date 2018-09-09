@@ -8,4 +8,7 @@ export default theme => ({
         marginBottom: 3 * theme.spacing.unit,
         paddingTop: 3 * theme.spacing.unit,
     },
+    gpsIcon: {
+        marginRight: theme.spacing.unit,
+    },
 });

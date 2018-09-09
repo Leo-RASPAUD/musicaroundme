@@ -17,6 +17,7 @@ const addApiKey = `apikey=${process.env.API_KEY}`;
 const addMusicClassification = 'classificationName=music';
 const addDefaultSize = `size=${DEFAULT_SIZE}`;
 const addVenueId = venueId => (venueId ? `&venueId=${venueId}` : '');
+const addKeyword = keyword => (keyword ? `&keyword=${keyword}` : '');
 const addGeoPoint = geoPoint => `geoPoint=${geoPoint}`;
 
 const addClassificationId = classificationId => {
@@ -67,14 +68,17 @@ const addTimeStamp = month => {
 
 module.exports.getEvents = async event => {
     const {
-        queryStringParameters: { lat, lng, venueId, classificationId, month },
+        queryStringParameters: { lat, lng, venueId, classificationId, month, keyword },
     } = event;
     try {
         const url = `${BASE_EVENTS_URL}?${addMusicClassification}&${addTimeStamp(
             month,
         )}&${addRadius}&${addDefaultSize}&${addGeoPoint(
             geohash.encode(lat, lng),
-        )}&${addApiKey}${addVenueId(venueId)}${addClassificationId(classificationId)}&${addSort}`;
+        )}&${addApiKey}${addVenueId(venueId)}${addKeyword(keyword)}${addClassificationId(
+            classificationId,
+        )}&${addSort}`;
+        console.log(url);
         const result = await axios({
             method: 'get',
             url,

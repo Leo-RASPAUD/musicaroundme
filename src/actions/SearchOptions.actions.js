@@ -10,6 +10,10 @@ const selectMonthAction = ({ selectedMonth }) => ({
     type: states.SELECT_MONTH,
     selectedMonth,
 });
+const updateArtistAction = ({ artist }) => ({
+    type: states.UPDATE_ARTIST,
+    artist,
+});
 
 const getClassificationsLoadingAction = () => ({ type: states.GET_CLASSIFICATIONS.loading });
 const getClassificationsFailureAction = () => ({ type: states.GET_CLASSIFICATIONS.failure });
@@ -45,9 +49,13 @@ const selectClassification = ({ classificationId }) => dispatch => {
 const selectMonth = ({ selectedMonth }) => dispatch => {
     dispatch(selectMonthAction({ selectedMonth }));
 };
+const updateArtist = ({ artist }) => dispatch => {
+    dispatch(updateArtistAction({ artist }));
+};
 
 export default {
     getClassifications,
     selectClassification,
     selectMonth,
+    updateArtist,
 };

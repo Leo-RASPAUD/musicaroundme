@@ -10,17 +10,19 @@ const getEventsSuccessAction = ({ upcomingEvents }) => ({
     upcomingEvents,
 });
 
-const getEvents = ({ position, venueId, classificationId, month }) => async (
-    dispatch,
-    getState,
-) => {
+const getEvents = ({ position, venueId }) => async (dispatch, getState) => {
     const errorMessage = 'Could not get the events';
     const {
         app: {
             configuration: { musicApiKey },
         },
         map: { currentPosition },
+        searchOptions: { selectedClassificationId, selectedMonth, artist },
     } = getState();
+
+    const classificationId = selectedClassificationId === 'All' ? '' : selectedClassificationId;
+    const month = selectedMonth === 'All' ? '' : selectedMonth;
+
     dispatch(getEventsLoadingAction());
     try {
         const result = await events.getEvents({
@@ -29,6 +31,7 @@ const getEvents = ({ position, venueId, classificationId, month }) => async (
             venueId,
             classificationId,
             month,
+            artist,
         });
         if (result.status !== 200) {
             dispatch(snackbarUtils.displaySnackbarError({ message: errorMessage }));
