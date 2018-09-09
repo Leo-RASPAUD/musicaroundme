@@ -8,6 +8,13 @@ export default theme => ({
     avatar: {
         ...cssConstants.display.flex,
     },
+    expandIconWrapper: {
+        ...cssConstants.display.flex,
+        ...cssConstants.justifyContent.flexEnd,
+    },
+    contentWrapper: {
+        ...cssConstants.display.flex,
+    },
     avatarDetails: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
@@ -22,5 +29,15 @@ export default theme => ({
     },
     panelRoot: {
         padding: `0 ${2 * theme.spacing.unit}px`,
+    },
+    panelWrapper: {
+        ...cssConstants.display.flex,
+        ...cssConstants.flexDirection.column,
+        flex: 1,
+        padding: '0 !important',
+    },
+    expandIcon: {
+        opacity: 0.75,
+        color: theme.palette.primary.main,
     },
 });

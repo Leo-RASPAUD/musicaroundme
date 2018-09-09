@@ -11,7 +11,7 @@ import {
     IconButton,
     Tooltip,
 } from '@material-ui/core';
-import { Home } from '@material-ui/icons';
+import { Home, ExpandMore, ExpandLess } from '@material-ui/icons';
 import { Facebook } from 'react-content-loader';
 import moment from 'moment';
 import { FaTicketAlt, FaWikipediaW, FaYoutube, FaFacebookF } from 'react-icons/fa';
@@ -47,7 +47,9 @@ class Events extends React.Component {
     render() {
         const { expanded } = this.state;
         const { classes, upcomingEvents, loading, zoomOnVenue, selectEvent } = this.props;
-        const events = formatEvents(upcomingEvents);
+        const events = formatEvents(upcomingEvents).filter(
+            event => event.dates.status.code !== 'cancelled',
+        );
         return (
             <div className={classes.root}>
                 <SearchOptions />
@@ -59,6 +61,7 @@ class Events extends React.Component {
                         const genreName = event.classifications[0].genre.name;
                         const genre = genreName === 'Undefined' ? 'Other' : genreName;
                         const { attractions } = event._embedded;
+                        const isExpanded = expanded === `panel_${event.id}`;
                         let links;
                         if (attractions) {
                             links = event._embedded.attractions[0].externalLinks;
@@ -76,37 +79,50 @@ class Events extends React.Component {
                                     selectEvent({ eventId: event.id });
                                 }}
                                 className={classes.panel}
-                                expanded={expanded === `panel_${event.id}`}
+                                expanded={isExpanded}
                                 onChange={this.handleChange(`panel_${event.id}`)}
                             >
-                                <ExpansionPanelSummary
-                                    className={classes.avatar}
-                                    classes={{ root: classes.panelRoot }}
-                                >
-                                    <Avatar
-                                        alt={event.name}
-                                        src={event.images[0].url}
-                                        className={classes.avatar}
-                                    />
-                                    <div className={classes.avatarDetails}>
-                                        <Typography variant="subheading">{event.name}</Typography>
-                                        <Typography variant="caption">
-                                            {moment(event.dates.start.dateTime).format(
-                                                'Do MMMM YYYY, HH:mm',
+                                <ExpansionPanelSummary classes={{ root: classes.panelRoot }}>
+                                    <div className={classes.panelWrapper}>
+                                        <div className={classes.contentWrapper}>
+                                            <Avatar
+                                                alt={event.name}
+                                                src={event.images[0].url}
+                                                className={classes.avatar}
+                                            />
+                                            <div className={classes.avatarDetails}>
+                                                <Typography variant="subheading">
+                                                    {event.name}
+                                                </Typography>
+                                                <Typography variant="caption">
+                                                    {event.dates.start.dateTime
+                                                        ? moment(event.dates.start.dateTime).format(
+                                                              'Do MMMM YYYY, HH:mm',
+                                                          )
+                                                        : 'To be announced'}
+                                                </Typography>
+                                                <Typography variant="caption">
+                                                    {event._embedded.venues[0].name}
+                                                </Typography>
+                                            </div>
+                                            {
+                                                <Chip
+                                                    className={classes.chip}
+                                                    label={genre || 'Other'}
+                                                    color="primary"
+                                                    variant="outlined"
+                                                />
+                                            }
+                                        </div>
+                                        <div className={classes.expandIconWrapper}>
+                                            {!isExpanded && (
+                                                <ExpandMore className={classes.expandIcon} />
                                             )}
-                                        </Typography>
-                                        <Typography variant="caption">
-                                            {event._embedded.venues[0].name}
-                                        </Typography>
+                                            {isExpanded && (
+                                                <ExpandLess className={classes.expandIcon} />
+                                            )}
+                                        </div>
                                     </div>
-                                    {
-                                        <Chip
-                                            className={classes.chip}
-                                            label={genre || 'Other'}
-                                            color="primary"
-                                            variant="outlined"
-                                        />
-                                    }
                                 </ExpansionPanelSummary>
                                 {event.selected && (
                                     <ExpansionPanelDetails>
