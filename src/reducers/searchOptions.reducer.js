@@ -1,10 +1,9 @@
 import states from 'constants/states.constants';
-import moment from 'moment';
 
 const initialState = {
     classifications: [],
     selectedClassificationId: 'All',
-    selectedMonth: moment().format('MMMM'),
+    selectedMonth: 'All',
     loading: [],
 };
 

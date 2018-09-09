@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
     selectMonth: event => {
         dispatch(
             eventActions.getEvents({
-                month: event.target.value,
+                month: event.target.value === 'All' ? '' : event.target.value,
             }),
         );
         dispatch(actions.selectMonth({ selectedMonth: event.target.value }));

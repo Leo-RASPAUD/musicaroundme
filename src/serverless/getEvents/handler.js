@@ -62,7 +62,7 @@ const addTimeStamp = month => {
             .substr(0, 19);
         return `startDateTime=${startDateTime}Z&endDateTime=${endDateTime}Z`;
     }
-    return `startDateTime=${startDateTime}Z&endDateTime=${endDateTime}Z`;
+    return `startDateTime=${startDateTime}Z`;
 };
 
 module.exports.getEvents = async event => {

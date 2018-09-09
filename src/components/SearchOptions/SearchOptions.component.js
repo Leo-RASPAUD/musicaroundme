@@ -54,6 +54,9 @@ const SearchOptions = props => {
                     }}
                     disabled={isLoading}
                 >
+                    <MenuItem key="All" value="All">
+                        All
+                    </MenuItem>
                     {months.map(month => (
                         <MenuItem key={month} value={month}>
                             {month}
