@@ -9,7 +9,9 @@ const GetCurrentInformation = props => {
     const { classes, getCurrentPosition } = props;
     return (
         <div className={classes.header}>
-            <Typography variant="subheading">First we need to get your location!</Typography>
+            <Typography variant="subheading" className={classes.text}>
+                First we need to get your location!
+            </Typography>
             <Button variant="outlined" color="primary" onClick={getCurrentPosition}>
                 <GpsFixed className={classes.gpsIcon} />
                 Get position

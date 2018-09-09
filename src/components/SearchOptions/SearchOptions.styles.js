@@ -21,10 +21,10 @@ export default theme => ({
         width: 150,
     },
     root: {
-        paddingTop: theme.spacing.unit,
+        paddingTop: 2 * theme.spacing.unit,
     },
     search: {
         ...cssConstants.textAlign.center,
-        padding: theme.spacing.unit,
+        padding: 2 * theme.spacing.unit,
     },
 });

@@ -16,7 +16,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getCurrentPosition: () => dispatch(actions.getCurrentPosition()),
+    getCurrentPosition: () => dispatch(actions.getCurrentPosition({})),
     updateCurrentPosition: ({ position }) => dispatch(actions.updateCurrentPosition({ position })),
     getEvents: ({ position }) => dispatch(eventsActions.getEvents({ position })),
     zoomOnVenue: ({ position, zoom, venueId }) =>

@@ -5,8 +5,10 @@ export default theme => ({
         ...cssConstants.display.flex,
         ...cssConstants.alignItems.center,
         ...cssConstants.flexDirection.column,
-        marginBottom: 3 * theme.spacing.unit,
         paddingTop: 3 * theme.spacing.unit,
+    },
+    text: {
+        paddingBottom: 2 * theme.spacing.unit,
     },
     gpsIcon: {
         marginRight: theme.spacing.unit,

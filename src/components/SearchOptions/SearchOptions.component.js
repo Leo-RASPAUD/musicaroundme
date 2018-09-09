@@ -39,7 +39,7 @@ const SearchOptions = props => {
     const isLoading = loading.length > 0 || loadingEvents.length > 0;
     return (
         <Grid container className={classes.root}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12} md={6}>
                 <MusicNoteOutlined color="primary" />
                 <FormControl className={classes.textField}>
                     <InputLabel htmlFor="classifications">Genre</InputLabel>
@@ -63,7 +63,7 @@ const SearchOptions = props => {
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12} md={6}>
                 <DateRangeOutlined color="primary" />
                 <FormControl className={classes.textField}>
                     <InputLabel htmlFor="month">Month</InputLabel>
@@ -87,7 +87,7 @@ const SearchOptions = props => {
                     </Select>
                 </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={12} md={6}>
                 <AccountCircleOutlined color="primary" />
                 <TextField
                     id="artist"
