@@ -27,15 +27,15 @@ const appReducer = (state = initialState, action) => {
         case states.SELECT_EVENT:
             return {
                 ...state,
-                upcomingEvents: state.upcomingEvents.map(event => {
-                    if (event.id === action.eventId) {
+                upcomingEvents: state.upcomingEvents.map(item => {
+                    if (item.event.id === action.eventId) {
                         return {
-                            ...event,
+                            ...item,
                             selected: true,
                         };
                     }
                     return {
-                        ...event,
+                        ...item,
                         selected: false,
                     };
                 }),

@@ -2,14 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Marker, OverlayView } from 'react-google-maps';
 import VenueInfo from 'components/VenueInfo/VenueInfo.component';
-import utils from 'utils/event.utils';
-
-const { formatVenues } = utils;
 
 const VenueMarkers = props => {
     const { venues, zoomOnVenue } = props;
-    const formattedVenues = formatVenues(venues);
-    return formattedVenues.map(venue => (
+    return venues.map(venue => (
         <Marker
             key={venue.id}
             position={venue}

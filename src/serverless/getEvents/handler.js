@@ -1,6 +1,7 @@
 const axios = require('axios');
 const geohash = require('ngeohash');
 const moment = require('moment');
+const { EventWrapper } = require('./wrapper');
 
 const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
@@ -78,7 +79,6 @@ module.exports.getEvents = async event => {
         )}&${addApiKey}${addVenueId(venueId)}${addKeyword(keyword)}${addClassificationId(
             classificationId,
         )}&${addSort}`;
-        console.log(url);
         const result = await axios({
             method: 'get',
             url,
@@ -94,7 +94,20 @@ module.exports.getEvents = async event => {
         return {
             statusCode: 200,
             headers: corsHeaders,
-            body: JSON.stringify(result.data._embedded.events),
+            body: JSON.stringify(
+                result.data._embedded.events.map(item => {
+                    try {
+                        const wrapped = new EventWrapper(item);
+                        return {
+                            event: wrapped.event,
+                            venue: wrapped.venue,
+                        };
+                    } catch (error) {
+                        console.log(error);
+                        return {};
+                    }
+                }),
+            ),
         };
     } catch (error) {
         return {

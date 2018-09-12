@@ -13,177 +13,150 @@ import {
 } from '@material-ui/core';
 import { Home, ExpandMore, ExpandLess } from '@material-ui/icons';
 import { Facebook } from 'react-content-loader';
-import moment from 'moment';
 import { FaTicketAlt, FaWikipediaW, FaYoutube, FaFacebookF } from 'react-icons/fa';
-import utils from 'utils/event.utils';
 import SearchOptions from 'containers/SearchOptions.container';
 import styles from './Events.styles';
 
-const { formatEvents } = utils;
-
-@withStyles(styles)
-class Events extends React.Component {
-    static propTypes = {
-        classes: PropTypes.object.isRequired,
-        zoomOnVenue: PropTypes.func.isRequired,
-        selectEvent: PropTypes.func.isRequired,
-        loading: PropTypes.array.isRequired,
-        upcomingEvents: PropTypes.array.isRequired,
-    };
-
-    constructor() {
-        super();
-        this.state = {
-            expanded: null,
-        };
-    }
-
-    handleChange = panel => (_, expanded) => {
-        this.setState({
-            expanded: expanded ? panel : false,
-        });
-    };
-
-    render() {
-        const { expanded } = this.state;
-        const { classes, upcomingEvents, loading, zoomOnVenue, selectEvent } = this.props;
-        const events = formatEvents(upcomingEvents).filter(
-            event => event.dates.status.code !== 'cancelled',
-        );
-        return (
-            <div className={classes.root}>
-                <SearchOptions />
-                {loading.length > 0 && <Facebook />}
-                {loading.length === 0 && upcomingEvents.length === 0 && <div>No events</div>}
-                {loading.length === 0 &&
-                    events.length > 0 &&
-                    events.map(event => {
-                        const genreName = event.classifications[0].genre.name;
-                        const genre = genreName === 'Undefined' ? 'Other' : genreName;
-                        const { attractions } = event._embedded;
-                        const isExpanded = expanded === `panel_${event.id}`;
-                        let links;
-                        if (attractions) {
-                            links = event._embedded.attractions[0].externalLinks;
-                        }
-
-                        return (
-                            <ExpansionPanel
-                                key={event.id}
-                                onClick={() => {
-                                    zoomOnVenue({
-                                        position: { lat: event.lat, lng: event.lng },
-                                        zoom: 16,
-                                        venueId: event._embedded.venues[0].id,
-                                    });
-                                    selectEvent({ eventId: event.id });
-                                }}
-                                className={classes.panel}
-                                expanded={isExpanded}
-                                onChange={this.handleChange(`panel_${event.id}`)}
-                            >
-                                <ExpansionPanelSummary classes={{ root: classes.panelRoot }}>
-                                    <div className={classes.panelWrapper}>
-                                        <div className={classes.contentWrapper}>
-                                            <Avatar
-                                                alt={event.name}
-                                                src={event.images[0].url}
-                                                className={classes.avatar}
+const Events = props => {
+    const { classes, upcomingEvents, loading, zoomOnVenue, selectEvent } = props;
+    const events = upcomingEvents.filter(event => event.statusCode !== 'cancelled');
+    return (
+        <div className={classes.root}>
+            <SearchOptions />
+            {loading.length > 0 && <Facebook />}
+            {loading.length === 0 && upcomingEvents.length === 0 && <div>No events</div>}
+            {loading.length === 0 &&
+                events.length > 0 &&
+                events.map(item => {
+                    const { event } = item;
+                    const { venue } = item;
+                    return (
+                        <ExpansionPanel
+                            key={event.id}
+                            onClick={() => {
+                                zoomOnVenue({
+                                    position: { lat: venue.lat, lng: venue.lng },
+                                    zoom: 16,
+                                    venueId: venue.id,
+                                });
+                                selectEvent({ eventId: event.id });
+                            }}
+                            className={classes.panel}
+                            expanded={event.selected}
+                        >
+                            <ExpansionPanelSummary classes={{ root: classes.panelRoot }}>
+                                <div className={classes.panelWrapper}>
+                                    <div className={classes.contentWrapper}>
+                                        <Avatar
+                                            alt={event.name}
+                                            src={event.avatarUrl}
+                                            className={classes.avatar}
+                                        />
+                                        <div className={classes.avatarDetails}>
+                                            <Typography variant="subheading">
+                                                {event.name}
+                                            </Typography>
+                                            <Typography variant="caption">
+                                                {event.startDateTime}
+                                            </Typography>
+                                            <Typography variant="caption">{venue.name}</Typography>
+                                        </div>
+                                        {
+                                            <Chip
+                                                className={classes.chip}
+                                                label={event.genre}
+                                                color="primary"
+                                                variant="outlined"
                                             />
-                                            <div className={classes.avatarDetails}>
-                                                <Typography variant="subheading">
-                                                    {event.name}
-                                                </Typography>
-                                                <Typography variant="caption">
-                                                    {event.dates.start.dateTime
-                                                        ? moment(event.dates.start.dateTime).format(
-                                                              'Do MMMM YYYY, HH:mm',
-                                                          )
-                                                        : 'To be announced'}
-                                                </Typography>
-                                                <Typography variant="caption">
-                                                    {event._embedded.venues[0].name}
-                                                </Typography>
-                                            </div>
-                                            {
-                                                <Chip
-                                                    className={classes.chip}
-                                                    label={genre || 'Other'}
-                                                    color="primary"
-                                                    variant="outlined"
-                                                />
-                                            }
-                                        </div>
-                                        <div className={classes.expandIconWrapper}>
-                                            {!isExpanded && (
-                                                <ExpandMore className={classes.expandIcon} />
-                                            )}
-                                            {isExpanded && (
-                                                <ExpandLess className={classes.expandIcon} />
-                                            )}
-                                        </div>
+                                        }
                                     </div>
-                                </ExpansionPanelSummary>
-                                {event.selected && (
-                                    <ExpansionPanelDetails>
-                                        <Tooltip title="Homepage">
+                                    <div className={classes.expandIconWrapper}>
+                                        {!item.selected && (
+                                            <ExpandMore className={classes.expandIcon} />
+                                        )}
+                                        {item.selected && (
+                                            <ExpandLess className={classes.expandIcon} />
+                                        )}
+                                    </div>
+                                </div>
+                            </ExpansionPanelSummary>
+                            {item.selected && (
+                                <ExpansionPanelDetails>
+                                    <Tooltip title="Homepage">
+                                        <div>
                                             <IconButton
                                                 variant="outlined"
                                                 color="primary"
-                                                disabled={!links || !links.homepage}
-                                                onClick={() => window.open(links.homepage[0].url)}
+                                                disabled={!event.links.homepage}
+                                                onClick={() => window.open(event.links.homepage)}
                                             >
                                                 <Home className={classes.linkIcon} />
                                             </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title="Buy tickets">
+                                        </div>
+                                    </Tooltip>
+                                    <Tooltip title="Buy tickets">
+                                        <div>
                                             <IconButton
                                                 variant="outlined"
                                                 color="primary"
-                                                disabled={!links}
+                                                disabled={!event.url}
                                                 onClick={() => window.open(event.url)}
                                             >
                                                 <FaTicketAlt className={classes.linkIcon} />
                                             </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title="Facebook">
+                                        </div>
+                                    </Tooltip>
+                                    <Tooltip title="Facebook">
+                                        <div>
                                             <IconButton
                                                 variant="outlined"
                                                 color="primary"
-                                                disabled={!links || !links.facebook}
-                                                onClick={() => window.open(links.facebook[0].url)}
+                                                disabled={!event.links.facebook}
+                                                onClick={() => window.open(event.links.facebook)}
                                             >
                                                 <FaFacebookF className={classes.linkIcon} />
                                             </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title="Youtube">
+                                        </div>
+                                    </Tooltip>
+                                    <Tooltip title="Youtube">
+                                        <div>
                                             <IconButton
                                                 variant="outlined"
                                                 color="primary"
-                                                disabled={!links || !links.youtube}
-                                                onClick={() => window.open(links.youtube[0].url)}
+                                                disabled={!event.links.youtube}
+                                                onClick={() => window.open(event.links.youtube)}
                                             >
                                                 <FaYoutube className={classes.linkIcon} />
                                             </IconButton>
-                                        </Tooltip>
-                                        <Tooltip title="Wikipedia">
+                                        </div>
+                                    </Tooltip>
+                                    <Tooltip title="Wikipedia">
+                                        <div>
                                             <IconButton
                                                 variant="outlined"
                                                 color="primary"
-                                                disabled={!links || !links.wiki}
-                                                onClick={() => window.open(links.wiki[0].url)}
+                                                disabled={!event.links.wiki}
+                                                onClick={() => window.open(event.links.wiki)}
                                             >
                                                 <FaWikipediaW className={classes.linkIcon} />
                                             </IconButton>
-                                        </Tooltip>
-                                    </ExpansionPanelDetails>
-                                )}
-                            </ExpansionPanel>
-                        );
-                    })}
-            </div>
-        );
-    }
-}
+                                        </div>
+                                    </Tooltip>
+                                </ExpansionPanelDetails>
+                            )}
+                        </ExpansionPanel>
+                    );
+                })}
+        </div>
+    );
+};
 
-export default Events;
+Events.propTypes = {
+    classes: PropTypes.object.isRequired,
+    zoomOnVenue: PropTypes.func.isRequired,
+    selectEvent: PropTypes.func.isRequired,
+    loading: PropTypes.array.isRequired,
+    upcomingEvents: PropTypes.array.isRequired,
+};
+
+export default withStyles(styles)(Events);

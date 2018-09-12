@@ -13,11 +13,7 @@ const VenueInfo = props => {
                 component="img"
                 className={classes.media}
                 height="100"
-                image={
-                    venue.images
-                        ? venue.images[0].url
-                        : 'https://source.unsplash.com/300x100/?music'
-                }
+                image={venue.imageUrl}
                 title={venue.name}
             />
             <CardContent>
@@ -35,10 +31,10 @@ const VenueInfo = props => {
                     </Tooltip>
                 </div>
                 <Typography variant="subheading" color="primary">
-                    {venue.upcomingEvents.ticketmaster} upcoming events
+                    {venue.upcomingEvents} upcoming events
                 </Typography>
-                <Typography variant="caption">{venue.city.name}</Typography>
-                <Typography variant="caption">{venue.address.line1}</Typography>
+                <Typography variant="caption">{venue.city}</Typography>
+                <Typography variant="caption">{venue.address}</Typography>
             </CardContent>
         </Card>
     );
