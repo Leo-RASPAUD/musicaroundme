@@ -8,21 +8,27 @@
 
 <!DOCTYPE html>
 <html prefix="og: http://ogp.me/ns#">
+
 <head>
-    <meta charset="utf-8">
-    <meta content="ie=edge" http-equiv="x-ua-compatible">
+  <meta charset="utf-8">
+  <meta content="ie=edge" http-equiv="x-ua-compatible">
 
-    <% if (htmlWebpackPlugin.options.baseHref) { %>
-    <base href="<%= htmlWebpackPlugin.options.baseHref %>">
+  <% if (htmlWebpackPlugin.options.baseHref) { %>
+  <base href="<%= htmlWebpackPlugin.options.baseHref %>">
+  <% } %>
+
+  <% if (Array.isArray(htmlWebpackPlugin.options.meta)) { %>
+  <% for (item of htmlWebpackPlugin.options.meta) { %>
+  <meta<% for (key in item) { %>
+    <%= key %>="
+    <%= item[key] %>"
+    <% } %> />
+    <% } %>
     <% } %>
 
-    <% if (Array.isArray(htmlWebpackPlugin.options.meta)) { %>
-      <% for (item of htmlWebpackPlugin.options.meta) { %>
-      <meta<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %> />
-      <% } %>
-    <% } %>
-
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <title>
+      <%= htmlWebpackPlugin.options.title %>
+    </title>
 
     <% if (htmlWebpackPlugin.files.favicon) { %>
     <link href="<%= htmlWebpackPlugin.files.favicon %>" rel="shortcut icon">
@@ -34,44 +40,69 @@
 
     <% for (item of htmlWebpackPlugin.options.links) { %>
     <% if (typeof item === 'string' || item instanceof String) { item = { href: item, rel: 'stylesheet' } } %>
-  	<link<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %>>
-    <% } %>
+    <link<% for (key in item) { %>
+      <%= key %>="
+      <%= item[key] %>"
+      <% } %>>
+      <% } %>
 
-    <% for (key in htmlWebpackPlugin.files.css) { %>
-    <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet">
-    <% } %>
+      <% for (key in htmlWebpackPlugin.files.css) { %>
+      <link href="<%= htmlWebpackPlugin.files.css[key] %>" rel="stylesheet">
+      <% } %>
 
-  </head>
-  <body>
-    <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
-    <style>.unsupported-browser { display: none; }</style>
-    <div class="unsupported-browser">
-      Sorry, your browser is not supported. Please upgrade to the latest version or switch your browser to use this
-      site. See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a> for options.
-    </div>
-    <% } %>
-    <% if (htmlWebpackPlugin.options.appMountId) { %>
-    <div style="height: 100%" id="<%= htmlWebpackPlugin.options.appMountId %>"></div>
-    <% } %>
-    <% for (item of htmlWebpackPlugin.options.appMountIds) { %>
-    <div style="height: 100%" id="<%= item %>"></div>
-    <% } %>
-    <% if (htmlWebpackPlugin.options.window) { %>
-    <script type="text/javascript">
+</head>
+
+<body>
+  <% if (htmlWebpackPlugin.options.unsupportedBrowser) { %>
+  <style>.unsupported-browser { display: none; }</style>
+  <div class="unsupported-browser">
+    Sorry, your browser is not supported. Please upgrade to the latest version or switch your browser to use this
+    site. See <a href="http://outdatedbrowser.com/">outdatedbrowser.com</a> for options.
+  </div>
+  <% } %>
+  <% if (htmlWebpackPlugin.options.appMountId) { %>
+  <div style="height: 100%" id="<%= htmlWebpackPlugin.options.appMountId %>"></div>
+  <% } %>
+  <% for (item of htmlWebpackPlugin.options.appMountIds) { %>
+  <div style="height: 100%" id="<%= item %>"></div>
+  <% } %>
+  <% if (htmlWebpackPlugin.options.window) { %>
+  <script type="text/javascript">
       <% for (key in htmlWebpackPlugin.options.window) { %>
       window['<%= key %>'] = <%= JSON.stringify(htmlWebpackPlugin.options.window[key]) %>;
       <% } %>
-    </script>
-    <% } %>
-    <% if (htmlWebpackPlugin.options.inlineManifestWebpackName) { %>
-        <%= htmlWebpackPlugin.files[htmlWebpackPlugin.options.inlineManifestWebpackName] %>
-    <% } %>
-    <% for (item of htmlWebpackPlugin.options.scripts) { %>
-    <% if (typeof item === 'string' || item instanceof String) { item = { src: item, type: 'text/javascript' } } %>
-  	<script<% for (key in item) { %> <%= key %>="<%= item[key] %>"<% } %>></script>
+  </script>
+  <% } %>
+  <% if (htmlWebpackPlugin.options.inlineManifestWebpackName) { %>
+  <%= htmlWebpackPlugin.files[htmlWebpackPlugin.options.inlineManifestWebpackName] %>
+  <% } %>
+  <% for (item of htmlWebpackPlugin.options.scripts) { %>
+  <% if (typeof item === 'string' || item instanceof String) { item = { src: item, type: 'text/javascript' } } %>
+  <script<% for (key in item) { %>
+    <%= key %>= "
+      <%= item[key] %> "
+        <% } %>></script>
     <% } %>
     <% for (key in htmlWebpackPlugin.files.chunks) { %>
     <script src="<%= htmlWebpackPlugin.files.chunks[key].entry %>" type="text/javascript"></script>
+    <script>
+        window['_fs_debug'] = false;
+      window['_fs_host'] = 'fullstory.com';
+      window['_fs_org'] = 'D1EQA';
+      window['_fs_namespace'] = 'FS';
+      (function (m, n, e, t, l, o, g, y) {
+        if (e in m) { if (m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].'); } return; }
+        g = m[e] = function (a, b) { g.q ? g.q.push([a, b]) : g._api(a, b); }; g.q = [];
+        o = n.createElement(t); o.async = 1; o.src = 'https://' + _fs_host + '/s/fs.js';
+        y = n.getElementsByTagName(t)[0]; y.parentNode.insertBefore(o, y);
+        g.identify = function (i, v) { g(l, { uid: i }); if (v) g(l, v) }; g.setUserVars = function (v) { g(l, v) }; g.event = function (i, v) { g('event', { n: i, p: v }) };
+        g.shutdown = function () { g("rec", !1) }; g.restart = function () { g("rec", !0) };
+        g.consent = function (a) { g("consent", !arguments.length || a) };
+        g.identifyAccount = function (i, v) { o = 'account'; v = v || {}; v.acctId = i; g(o, v) };
+        g.clearUserCookie = function () { };
+      })(window, document, window['_fs_namespace'], 'script', 'user');
+    </script>
     <% } %>
-  </body>
+</body>
+
 </html>

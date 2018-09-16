@@ -8,7 +8,7 @@ const corsHeaders = {
 const BASE_EVENTS_URL =
     'https://app.ticketmaster.com/discovery/v2/classifications.json?id=KZFzniwnSyZfZ7v7nJ';
 
-const addApiKey = `apikey=${process.env.API_KEY}`;
+const addApiKey = `apikey=${process.env.TICKETMASTER_API_KEY}`;
 module.exports.getClassifications = async () => {
     try {
         const url = `${BASE_EVENTS_URL}&${addApiKey}`;

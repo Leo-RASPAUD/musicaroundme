@@ -9,6 +9,11 @@ provider:
     region: ap-southeast-2
     apiKeys:
         - MUSIC_AROUND_ME_API_KEY
+    iamRoleStatements:
+        - Effect: Allow
+          Action:
+              - 'dynamodb:*'
+          Resource: '*'
 
 functions:
     getEvents:
