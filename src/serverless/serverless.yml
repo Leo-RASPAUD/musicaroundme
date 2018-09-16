@@ -14,7 +14,8 @@ functions:
     getEvents:
         handler: getEvents/handler.getEvents
         environment:
-            API_KEY: jhDKbPlJL4AVGmUTxxA7701jnK2vcOEu
+            TICKETMASTER_API_KEY: jhDKbPlJL4AVGmUTxxA7701jnK2vcOEu
+            SONGKICK_API_KEY: jjTwg0sS5Y4glVjE
         events:
             - http:
                   path: events/event
@@ -29,7 +30,7 @@ functions:
     getClassifications:
         handler: getClassifications/handler.getClassifications
         environment:
-            API_KEY: jhDKbPlJL4AVGmUTxxA7701jnK2vcOEu
+            TICKETMASTER_API_KEY: jhDKbPlJL4AVGmUTxxA7701jnK2vcOEu
         events:
             - http:
                   path: classifications
