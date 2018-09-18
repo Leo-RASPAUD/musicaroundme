@@ -1,7 +1,17 @@
 const AWS = require('aws-sdk'); // eslint-disable-line
 const ticketMasterHandler = require('./Ticketmaster/Ticketmaster.handler');
-const ticketMasterUtils = require('./Ticketmaster/Ticketmaster.utils');
-const { corsHeaders, getArtists, batchedAsync, removeDuplicates } = require('./utils');
+const songkickHandler = require('./Songkick/Songkick.handler');
+const {
+    corsHeaders,
+    getArtists,
+    batchedAsync,
+    removeDuplicates,
+    mapNameEvent,
+    getItemsFound,
+    getItemsNotFound,
+    sortByDate,
+    cleanUp,
+} = require('./utils');
 
 const dynamoClient = new AWS.DynamoDB.DocumentClient();
 
@@ -18,16 +28,28 @@ module.exports.getEvents = async event => {
             month,
             keyword,
         });
-        const noDuplicatesResults = [...new Set(ticketMasterResults.map(item => item.event.name))];
+        const songkickResults = await songkickHandler({ lat, lng });
 
-        // Need to do that for every API (limited to 100 by dynamodb)
+        console.log(songkickResults[0]);
+
+        const noDuplicatesResults = [
+            ...new Set(
+                ticketMasterResults.map(mapNameEvent).concat(songkickResults.map(mapNameEvent)),
+            ),
+        ];
+
+        // Limited to 100 by dynamodb, for now ok since we're doing 50 + 50
         const artists = await getArtists({
             client: dynamoClient,
             items: noDuplicatesResults.map(item => ({ id: item })),
         });
 
-        const itemsFound = ticketMasterUtils.getItemsFound({ artists, ticketMasterResults });
-        const itemsNotFound = ticketMasterUtils.getItemsNotFound({ artists, ticketMasterResults });
+        const itemsFound = getItemsFound({ artists, items: ticketMasterResults }).concat(
+            getItemsFound({ artists, items: songkickResults }),
+        );
+        const itemsNotFound = getItemsNotFound({ artists, items: ticketMasterResults }).concat(
+            getItemsNotFound({ artists, items: songkickResults }),
+        );
 
         // Update database
         await batchedAsync({
@@ -39,9 +61,9 @@ module.exports.getEvents = async event => {
             chunkSize: 25,
             msDelayBetweenChunks: 1000,
         });
-        // End for every API
+        // End limit 50
 
-        const finalResults = itemsFound.concat(itemsNotFound);
+        const finalResults = cleanUp(itemsFound.concat(itemsNotFound)).sort(sortByDate);
         return {
             statusCode: 200,
             headers: corsHeaders,

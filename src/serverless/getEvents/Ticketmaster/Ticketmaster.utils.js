@@ -1,7 +1,6 @@
 const moment = require('moment');
-const { removeNull } = require('../utils');
 
-const DEFAULT_SIZE = 100;
+const DEFAULT_SIZE = 50;
 const DEFAULT_RADIUS = 20;
 
 const addSort = 'sort=date,asc';
@@ -59,24 +58,6 @@ const addTimeStamp = month => {
     return `startDateTime=${startDateTime}Z`;
 };
 
-const getItemsFound = ({ artists, ticketMasterResults }) =>
-    ticketMasterResults
-        .map(item => {
-            const fromDb = artists.find(artist => artist.id === item.event.name);
-            return fromDb ? { ...item, event: { ...item.event, genre: fromDb.genre } } : null;
-        })
-        .filter(removeNull);
-
-const getItemsNotFound = ({ artists, ticketMasterResults }) =>
-    ticketMasterResults
-        .map(item => {
-            const fromDb = artists.find(artist => artist.id === item.event.name);
-            return !fromDb || (fromDb.genre === 'Unknown' && item.genre)
-                ? { ...item, event: { ...item.event, genre: item.event.genre || 'Unknown' } }
-                : null;
-        })
-        .filter(removeNull);
-
 module.exports = {
     addSort,
     addRadius,
@@ -88,6 +69,4 @@ module.exports = {
     addGeoPoint,
     addClassificationId,
     addTimeStamp,
-    getItemsFound,
-    getItemsNotFound,
 };

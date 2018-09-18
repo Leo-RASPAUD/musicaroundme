@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { withStyles } from '@material-ui/core/styles';
 import {
     ExpansionPanel,
@@ -57,7 +58,11 @@ const Events = props => {
                                                 {event.name}
                                             </Typography>
                                             <Typography variant="caption">
-                                                {event.startDateTime}
+                                                {event.startDateTime === 'Unknown'
+                                                    ? event.startDateTime
+                                                    : moment(event.startDateTime).format(
+                                                          'Do MMMM YYYY, HH:mm',
+                                                      )}
                                             </Typography>
                                             <Typography variant="caption">{venue.name}</Typography>
                                         </div>

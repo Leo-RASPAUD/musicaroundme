@@ -33,8 +33,8 @@ class EventWrapper {
 
         const startDateTime =
             event.dates && event.dates.start && event.dates.start.dateTime
-                ? moment(event.dates.start.dateTime).format('Do MMMM YYYY, HH:mm')
-                : 'To be announced';
+                ? moment(event.dates.start.dateTime)
+                : 'Unknown';
 
         if (attractions && attractions.length > 0) {
             const { externalLinks } = attractions[0];

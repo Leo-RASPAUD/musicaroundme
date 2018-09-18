@@ -1,7 +1,7 @@
 import states from 'constants/states.constants';
 
-const removeDuplicatesName = (obj, pos, arr) =>
-    arr.map(mapObj => mapObj.name).indexOf(obj.name) === pos;
+// const removeDuplicatesName = (obj, pos, arr) =>
+//     arr.map(mapObj => mapObj.name).indexOf(obj.name) === pos;
 
 const initialState = {
     items: [],
@@ -12,7 +12,7 @@ const appReducer = (state = initialState, action) => {
         case states.GET_UPCOMING_EVENTS.success:
             return {
                 ...state,
-                items: action.upcomingEvents.map(item => item.venue).filter(removeDuplicatesName),
+                items: action.upcomingEvents.map(item => item.venue),
             };
         case states.ZOOM_ON_VENUE:
             return {
