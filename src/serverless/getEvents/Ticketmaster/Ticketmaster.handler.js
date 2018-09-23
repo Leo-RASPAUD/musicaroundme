@@ -29,6 +29,8 @@ const handler = async ({ lat, lng, venueId, classificationId, month, keyword }) 
 &${addClassificationId(classificationId)}\
 &${addSort}`;
 
+    console.log(url);
+
     const result = await axios({ method: 'get', url });
     if (result.data.page.totalElements === 0) {
         return [];

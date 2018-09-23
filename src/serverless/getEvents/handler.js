@@ -30,8 +30,6 @@ module.exports.getEvents = async event => {
         });
         const songkickResults = await songkickHandler({ lat, lng });
 
-        console.log(songkickResults[0]);
-
         const noDuplicatesResults = [
             ...new Set(
                 ticketMasterResults.map(mapNameEvent).concat(songkickResults.map(mapNameEvent)),

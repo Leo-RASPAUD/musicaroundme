@@ -18,6 +18,26 @@ import { FaTicketAlt, FaWikipediaW, FaYoutube, FaFacebookF } from 'react-icons/f
 import SearchOptions from 'containers/SearchOptions.container';
 import styles from './Events.styles';
 
+const stringToColor = string => {
+    let hash = 0;
+    let i;
+
+    /* eslint-disable no-bitwise */
+    for (i = 0; i < string.length; i += 1) {
+        hash = string.charCodeAt(i) + ((hash << 5) - hash);
+    }
+
+    let colour = '#';
+
+    for (i = 0; i < 3; i += 1) {
+        const value = (hash >> (i * 8)) & 0xff;
+        colour += `00${value.toString(16)}`.substr(-2);
+    }
+    /* eslint-enable no-bitwise */
+
+    return colour;
+};
+
 const Events = props => {
     const { classes, upcomingEvents, loading, zoomOnVenue, selectEvent } = props;
     const events = upcomingEvents.filter(event => event.statusCode !== 'cancelled');
@@ -52,7 +72,10 @@ const Events = props => {
                                             alt={event.name}
                                             src={event.avatarUrl}
                                             className={classes.avatar}
-                                        />
+                                            style={{ backgroundColor: stringToColor(event.name) }}
+                                        >
+                                            {event.name[0]}
+                                        </Avatar>
                                         <div className={classes.avatarDetails}>
                                             <Typography variant="subheading">
                                                 {event.name}
