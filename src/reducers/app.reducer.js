@@ -31,8 +31,8 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoadingConfiguration: false,
-                configuration: action.configuration.Items.reduce(
-                    (a, b) => ({ ...a, [b.id.S]: b.value.S }),
+                configuration: action.configuration.reduce(
+                    (a, b) => ({ ...a, [b.id]: b.value }),
                     {},
                 ),
             };

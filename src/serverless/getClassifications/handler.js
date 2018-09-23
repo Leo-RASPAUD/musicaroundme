@@ -1,9 +1,5 @@
 const axios = require('axios');
-
-const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true,
-};
+const { corsHeaders } = require('../utils/http.utils');
 
 const BASE_EVENTS_URL =
     'https://app.ticketmaster.com/discovery/v2/classifications.json?id=KZFzniwnSyZfZ7v7nJ';

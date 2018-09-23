@@ -3,11 +3,6 @@ const moment = require('moment');
 const removeNull = item => item;
 const mapNameEvent = item => item.event.name;
 
-const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true,
-};
-
 const writeItems = async ({ chunk, chunks, client }) => {
     const { UnprocessedItems } = await client
         .batchWrite({
@@ -117,7 +112,6 @@ module.exports = {
     cleanUp,
     getItemsFound,
     getItemsNotFound,
-    corsHeaders,
     batchedAsync,
     writeItems,
     getArtists,

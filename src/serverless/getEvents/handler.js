@@ -1,8 +1,8 @@
 const AWS = require('aws-sdk'); // eslint-disable-line
 const ticketMasterHandler = require('./Ticketmaster/Ticketmaster.handler');
 const songkickHandler = require('./Songkick/Songkick.handler');
+const { corsHeaders } = require('../utils/http.utils');
 const {
-    corsHeaders,
     getArtists,
     batchedAsync,
     removeDuplicates,

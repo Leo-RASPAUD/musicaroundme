@@ -1,6 +1,5 @@
 import httpUtils from 'utils/http.utils';
-
-const BASE_URL = 'https://nilep5ag3l.execute-api.ap-southeast-2.amazonaws.com/PROD';
+import serverlessUtils from 'utils/serverless';
 
 const addVenueId = venueId => (venueId ? `&venueId=${venueId}` : '');
 const addArtist = artist => (artist ? `&keyword=${artist}` : '');
@@ -14,9 +13,11 @@ const addClassificationId = classificationId => {
 
 const getEvents = ({ position, musicApiKey, venueId, classificationId, month, artist }) =>
     httpUtils.get({
-        url: `${BASE_URL}/events/event?lat=${position.lat}&lng=${position.lng}${addVenueId(
-            venueId,
-        )}${addClassificationId(classificationId)}${addMonth(month)}${addArtist(artist)}`,
+        url: `${serverlessUtils.config.baseUrl}/events/event?lat=${position.lat}&lng=${
+            position.lng
+        }${addVenueId(venueId)}${addClassificationId(classificationId)}${addMonth(
+            month,
+        )}${addArtist(artist)}`,
         headers: {
             'x-api-key': musicApiKey,
         },

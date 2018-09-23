@@ -1,4 +1,6 @@
 service: MusicAroundMe
+package:
+    excludeDevDependencies: true
 
 provider:
     name: aws
@@ -41,5 +43,13 @@ functions:
                   path: classifications
                   method: get
                   private: true
+                  cors:
+                      origin: '*'
+    getConfiguration:
+        handler: getConfiguration/handler.getConfiguration
+        events:
+            - http:
+                  path: configuration
+                  method: get
                   cors:
                       origin: '*'
