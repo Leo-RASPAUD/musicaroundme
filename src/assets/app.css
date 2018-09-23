@@ -12,7 +12,6 @@ input[type='text']:disabled {
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(158, 158, 158, 0.25);
     height: 3px;
     width: 3px;
     border-radius: 20px;
@@ -21,6 +20,7 @@ input[type='text']:disabled {
 ::-webkit-scrollbar-thumb {
     background: #3f51b5;
     border-radius: 20px;
+    transition: all 0.25s ease-in-out;
 }
 
 ::-webkit-scrollbar-thumb:hover {
