@@ -30,9 +30,6 @@ const VenueInfo = props => {
                         </IconButton>
                     </Tooltip>
                 </div>
-                <Typography variant="subheading" color="primary">
-                    {venue.upcomingEvents} upcoming events
-                </Typography>
                 <Typography variant="caption">{venue.city}</Typography>
                 <Typography variant="caption">{venue.address}</Typography>
             </CardContent>
