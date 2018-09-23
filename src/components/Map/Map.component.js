@@ -22,8 +22,8 @@ const getPosition = position => JSON.parse(JSON.stringify(position));
     googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${
         props.gmapsApiKey
     }&libraries=geometry,drawing,places`,
-    loadingElement: <Grid item xs={12} sm={9} style={{ height: '90vh' }} />,
-    containerElement: <Grid item xs={12} sm={9} style={{ height: '90vh' }} />,
+    loadingElement: <Grid item xs={12} sm={9} style={{ height: 'calc(100vh - 64px - 35px)' }} />,
+    containerElement: <Grid item xs={12} sm={9} style={{ height: 'calc(100vh - 64px - 35px)' }} />,
     mapElement: <div style={{ height: '100%' }} />,
 }))
 @withScriptjs

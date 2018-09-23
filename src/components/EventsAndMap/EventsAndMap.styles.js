@@ -1,10 +1,6 @@
 import cssConstants from 'constants/css.constants';
 
 export default () => ({
-    root: {
-        height: '100%',
-        flex: 1,
-    },
     ticketmasterLogo: {
         ...cssConstants.display.flex,
         ...cssConstants.alignItems.center,
@@ -12,6 +8,7 @@ export default () => ({
         transform: 'scale(0.25)',
     },
     events: {
-        height: '90vh',
+        height: 'calc(100vh - 64px - 35px)',
+        ...cssConstants.overflow.hidden,
     },
 });

@@ -2,7 +2,8 @@ import cssConstants from 'constants/css.constants';
 
 export default theme => ({
     root: {
-        ...cssConstants.overflow.auto,
+        overflowY: 'auto',
+        overflowX: 'hidden',
         maxHeight: '100%',
     },
     avatar: {

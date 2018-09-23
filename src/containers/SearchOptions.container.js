@@ -18,6 +18,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getClassifications: () => dispatch(actions.getClassifications()),
     updateArtist: event => dispatch(actions.updateArtist({ artist: event.target.value })),
+    clear: async () => {
+        await dispatch(actions.updateArtist({ artist: '' }));
+        dispatch(eventActions.getEvents({}));
+    },
     selectClassification: event => {
         dispatch(actions.selectClassification({ classificationId: event.target.value }));
     },
@@ -46,6 +50,7 @@ class SearchOptionsContainer extends React.PureComponent {
         selectMonth: PropTypes.func.isRequired,
         updateArtist: PropTypes.func.isRequired,
         search: PropTypes.func.isRequired,
+        clear: PropTypes.func.isRequired,
         artist: PropTypes.string.isRequired,
     };
 
@@ -66,6 +71,7 @@ class SearchOptionsContainer extends React.PureComponent {
             artist,
             updateArtist,
             search,
+            clear,
         } = this.props;
         return (
             <SearchOptions
@@ -78,6 +84,7 @@ class SearchOptionsContainer extends React.PureComponent {
                 selectMonth={selectMonth}
                 artist={artist}
                 search={search}
+                clear={clear}
                 updateArtist={updateArtist}
             />
         );

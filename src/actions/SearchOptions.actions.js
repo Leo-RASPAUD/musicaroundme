@@ -1,6 +1,7 @@
 import classificationsService from 'services/classifications';
 import snackbarUtils from 'utils/snackbarUtils';
 import states from 'constants/states.constants';
+import eventActions from 'actions/Events.actions';
 
 const selectClassificationAction = ({ classificationId }) => ({
     type: states.SELECT_CLASSIFICATION,
@@ -43,11 +44,13 @@ const getClassifications = () => async (dispatch, getState) => {
     }
 };
 
-const selectClassification = ({ classificationId }) => dispatch => {
-    dispatch(selectClassificationAction({ classificationId }));
+const selectClassification = ({ classificationId }) => async dispatch => {
+    await dispatch(selectClassificationAction({ classificationId }));
+    dispatch(eventActions.getEvents({}));
 };
-const selectMonth = ({ selectedMonth }) => dispatch => {
+const selectMonth = ({ selectedMonth }) => async dispatch => {
     dispatch(selectMonthAction({ selectedMonth }));
+    dispatch(eventActions.getEvents({}));
 };
 const updateArtist = ({ artist }) => dispatch => {
     dispatch(updateArtistAction({ artist }));

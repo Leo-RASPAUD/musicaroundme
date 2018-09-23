@@ -14,5 +14,6 @@ export default theme => ({
     },
     card: {
         ...cssConstants.cursor.default,
+        width: 300,
     },
 });
