@@ -17,11 +17,16 @@ const getEvents = ({ position, venueId }) => async (dispatch, getState) => {
             configuration: { musicApiKey },
         },
         map: { currentPosition },
-        searchOptions: { selectedClassificationId, selectedMonth, artist },
+        searchOptions: { selectedClassificationId, selectedMonth, artist, classifications },
     } = getState();
 
-    const classificationId = selectedClassificationId === 'All' ? '' : selectedClassificationId;
+    let genre = '';
+    let classificationId = '';
     const month = selectedMonth === 'All' ? '' : selectedMonth;
+    if (selectedClassificationId !== 'All') {
+        classificationId = selectedClassificationId;
+        genre = classifications.find(item => item.id === classificationId).name;
+    }
 
     dispatch(getEventsLoadingAction());
     try {
@@ -32,6 +37,7 @@ const getEvents = ({ position, venueId }) => async (dispatch, getState) => {
             classificationId,
             month,
             artist,
+            genre,
         });
         if (result.status !== 200) {
             dispatch(snackbarUtils.displaySnackbarError({ message: errorMessage }));

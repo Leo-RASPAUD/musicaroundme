@@ -23,7 +23,7 @@ class EventWrapper {
         }
 
         this._event = {
-            genre: 'Unknown',
+            genre: 'Undefined',
             url: event.uri,
             id: event.id,
             name: event.type === 'Concert' ? event.performance[0].displayName : event.displayName,

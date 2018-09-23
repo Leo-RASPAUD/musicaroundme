@@ -15,7 +15,7 @@ module.exports.getClassifications = async () => {
         const { genres } = result.data._embedded.classifications[0].segment._embedded;
         const allGenres = [].concat(
             ...genres.map(genre => ({
-                name: genre.name,
+                name: genre.name === 'Undefined' ? 'Unknown' : genre.name,
                 id: genre.id,
             })),
         );

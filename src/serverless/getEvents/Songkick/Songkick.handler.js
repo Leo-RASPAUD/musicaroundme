@@ -7,15 +7,18 @@ const {
     addPerPage,
     addLocation,
     addTypeConcert,
-    removePastEvents,
+    addKeyword,
     removeCancelled,
+    addTimestamp,
 } = require('./Songkick.utils');
 
-const handler = async ({ lat, lng }) => {
+const handler = async ({ lat, lng, keyword, month }) => {
     const eventsUrl = `${baseUrl}/events.json\
 ?${addLocation({ lat, lng })}\
 &${addPerPage(maxPerPage)}\
 &${addTypeConcert}\
+&${addKeyword(keyword)}\
+&${addTimestamp(month)}\
 &${addApiKey}`;
 
     console.log(eventsUrl);
@@ -25,23 +28,21 @@ const handler = async ({ lat, lng }) => {
         url: eventsUrl,
     });
     const resultsEvents = results.data.resultsPage.results.event;
-    return resultsEvents
-        .filter(removeCancelled)
-        .map(item => {
-            try {
-                const wrapped = new EventWrapper(item);
-                console.log(item, wrapped);
-                return {
-                    event: wrapped.event,
-                    venue: wrapped.venue,
-                };
-            } catch (error) {
-                console.log('Songkick.handler');
-                console.log(error);
-                return {};
-            }
-        })
-        .filter(removePastEvents);
+    return !Array.isArray(resultsEvents)
+        ? []
+        : resultsEvents.filter(removeCancelled).map(item => {
+              try {
+                  const wrapped = new EventWrapper(item);
+                  return {
+                      event: wrapped.event,
+                      venue: wrapped.venue,
+                  };
+              } catch (error) {
+                  console.log('Songkick.handler');
+                  console.log(error);
+                  return {};
+              }
+          });
 };
 
 module.exports = handler;
