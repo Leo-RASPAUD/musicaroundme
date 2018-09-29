@@ -71,9 +71,8 @@ module.exports.getEvents = async event => {
                 .filter(item => {
                     if (genre) {
                         return (
-                            item.event.genre === 'Undefined' ||
-                            (item.event.genre &&
-                                item.event.genre.toLowerCase() === genre.toLowerCase())
+                            item.event.genre &&
+                            item.event.genre.toLowerCase() === genre.toLowerCase()
                         );
                     }
                     return true;
