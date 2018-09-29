@@ -3,34 +3,6 @@ const moment = require('moment');
 const removeNull = item => item;
 const mapNameEvent = item => item.event.name;
 
-const writeItems = async ({ chunk, chunks, client }) => {
-    const { UnprocessedItems } = await client
-        .batchWrite({
-            RequestItems: {
-                ArtistsMusicAroundMe: chunk.map(item => ({ PutRequest: { Item: item } })),
-            },
-        })
-        .promise();
-    if (UnprocessedItems.length) {
-        chunks.push(UnprocessedItems);
-    }
-};
-
-/* eslint-disable no-await-in-loop */
-const batchedAsync = async ({ client, list, chunkSize = 10, msDelayBetweenChunks = 0 }) => {
-    console.log(`${list.length} items to create or update`);
-    const emptyList = new Array(Math.ceil(list.length / chunkSize)).fill();
-    const clonedList = list.slice(0);
-    const chunks = emptyList.map(() => clonedList.splice(0, chunkSize));
-    for (let i = 0; i < chunks.length; i += 1) {
-        const chunk = chunks[i];
-        if (msDelayBetweenChunks) {
-            await new Promise(resolve => setTimeout(resolve, msDelayBetweenChunks));
-        }
-        await writeItems({ client, chunk, chunks });
-    }
-};
-
 const getArtists = async ({ client, items }) => {
     const params = {
         RequestItems: {
@@ -112,8 +84,6 @@ module.exports = {
     cleanUp,
     getItemsFound,
     getItemsNotFound,
-    batchedAsync,
-    writeItems,
     getArtists,
     removeDuplicates,
     removeNull,

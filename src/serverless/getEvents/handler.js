@@ -4,7 +4,6 @@ const songkickHandler = require('./Songkick/Songkick.handler');
 const { corsHeaders } = require('../utils/http.utils');
 const {
     getArtists,
-    batchedAsync,
     removeDuplicates,
     mapNameEvent,
     getItemsFound,
@@ -12,6 +11,7 @@ const {
     sortByDate,
     cleanUp,
 } = require('./utils');
+const { batchedAsync } = require('../utils/db.utils');
 
 const dynamoClient = new AWS.DynamoDB.DocumentClient();
 
@@ -20,15 +20,18 @@ module.exports.getEvents = async event => {
         queryStringParameters: { lat, lng, venueId, classificationId, month, keyword, genre },
     } = event;
     try {
-        const ticketMasterResults = await ticketMasterHandler({
-            lat,
-            lng,
-            venueId,
-            classificationId,
-            month,
-            keyword,
-        });
-        const songkickResults = await songkickHandler({ lat, lng, keyword, month, genre });
+        const promises = [
+            ticketMasterHandler({
+                lat,
+                lng,
+                venueId,
+                classificationId,
+                month,
+                keyword,
+            }),
+            songkickHandler({ lat, lng, keyword, month, genre }),
+        ];
+        const [ticketMasterResults, songkickResults] = await Promise.all(promises);
 
         const noDuplicatesResults = [
             ...new Set(
@@ -60,12 +63,12 @@ module.exports.getEvents = async event => {
                 client: dynamoClient,
                 chunkSize: 25,
                 msDelayBetweenChunks: 1000,
+                table: 'ArtistsMusicAroundMe',
             });
-            // End limit 50
+
             finalResults = cleanUp(itemsFound.concat(itemsNotFound))
                 .sort(sortByDate)
                 .filter(item => {
-                    console.log(genre, item.event, item.event ? item.event.genre : '');
                     if (genre) {
                         return (
                             item.event.genre === 'Undefined' ||
