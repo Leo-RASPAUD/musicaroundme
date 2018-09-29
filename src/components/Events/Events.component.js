@@ -44,7 +44,7 @@ const Events = props => {
     return (
         <Fragment>
             <SearchOptions />
-            {loading.length > 0 && <Facebook style={{ padding: 16 }} />}
+            {loading.length > 0 && <Facebook style={{ paddingTop: 8 }} />}
             <div className={classes.root}>
                 {loading.length === 0 && upcomingEvents.length === 0 && <div>No events</div>}
                 {loading.length === 0 &&
@@ -63,8 +63,10 @@ const Events = props => {
                                     });
                                     selectEvent({ eventId: event.id });
                                 }}
-                                className={classes.panel}
                                 expanded={event.selected}
+                                classes={{
+                                    expanded: classes.expanded,
+                                }}
                             >
                                 <ExpansionPanelSummary classes={{ root: classes.panelRoot }}>
                                     <div className={classes.panelWrapper}>

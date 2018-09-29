@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withProps } from 'recompose';
-import { Grid, Button } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import GpsFixed from '@material-ui/icons/GpsFixed';
 import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
@@ -22,8 +22,8 @@ const getPosition = position => JSON.parse(JSON.stringify(position));
     googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${
         props.gmapsApiKey
     }&libraries=geometry,drawing,places`,
-    loadingElement: <Grid item xs={12} sm={9} style={{ height: 'calc(100vh - 64px - 35px)' }} />,
-    containerElement: <Grid item xs={12} sm={9} style={{ height: 'calc(100vh - 64px - 35px)' }} />,
+    loadingElement: <div style={{ height: 'calc(100vh - 64px - 35px)' }} />,
+    containerElement: <div style={{ height: 'calc(100vh - 64px - 35px)' }} />,
     mapElement: <div style={{ height: '100%' }} />,
 }))
 @withScriptjs

@@ -13,7 +13,9 @@ const EventsAndMap = props => {
             <Grid item xs={12} sm={3} className={classes.events}>
                 <Events />
             </Grid>
-            <Map />
+            <Grid item xs={12} sm={9}>
+                <Map />
+            </Grid>
             <Grid item xs={12} className={classes.ticketmasterLogo}>
                 Powered by
                 <img

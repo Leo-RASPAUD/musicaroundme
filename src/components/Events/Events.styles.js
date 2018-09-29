@@ -2,9 +2,9 @@ import cssConstants from 'constants/css.constants';
 
 export default theme => ({
     root: {
-        overflowY: 'auto',
-        overflowX: 'hidden',
-        maxHeight: '100%',
+        height: 100,
+        flex: 1,
+        ...cssConstants.overflow.auto,
     },
     avatar: {
         ...cssConstants.display.flex,
@@ -22,8 +22,8 @@ export default theme => ({
         marginLeft: theme.spacing.unit,
         flex: 1,
     },
-    panel: {
-        margin: theme.spacing.unit,
+    expanded: {
+        margin: 0,
     },
     chip: {
         paddingRight: '0 !important',

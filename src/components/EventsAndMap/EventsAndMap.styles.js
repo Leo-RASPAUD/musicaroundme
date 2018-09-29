@@ -8,7 +8,7 @@ export default () => ({
         transform: 'scale(0.25)',
     },
     events: {
-        height: 'calc(100vh - 64px - 35px)',
-        ...cssConstants.overflow.hidden,
+        ...cssConstants.display.flex,
+        ...cssConstants.flexDirection.column,
     },
 });
