@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Map from 'containers/Map.container';
 import Events from 'containers/Events.container';
-import Grid from '@material-ui/core/Grid';
+import VenueInfo from 'containers/VenueInfo.container';
+import { Grid, Hidden } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import styles from './EventsAndMap.styles';
 
@@ -11,12 +12,15 @@ const EventsAndMap = props => {
     return (
         <div className={classes.root}>
             <Grid container spacing={0} className={classes.flex1}>
-                <Grid item xs={12} sm={3} className={classes.flexColumn}>
+                <Grid item xs={12} sm={3} className={classes.events}>
                     <Events />
                 </Grid>
-                <Grid item xs={12} sm={9} className={classes.flexColumn}>
-                    <Map />
-                </Grid>
+                <Hidden xsDown>
+                    <Grid item xs={12} sm={9} className={classes.map}>
+                        <Map />
+                        <VenueInfo />
+                    </Grid>
+                </Hidden>
             </Grid>
             <div className={classes.footer}>
                 Powered by

@@ -5,9 +5,14 @@ export default () => ({
         transform: 'scale(0.25)',
         height: 35,
     },
-    flexColumn: {
+    events: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
+    },
+    map: {
+        ...cssConstants.display.flex,
+        ...cssConstants.flexDirection.column,
+        ...cssConstants.position.relative,
     },
     root: {
         flex: 1,

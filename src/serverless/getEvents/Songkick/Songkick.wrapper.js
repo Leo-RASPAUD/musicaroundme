@@ -45,7 +45,7 @@ class EventWrapper {
                     venue.metroArea.country.displayName) ||
                 '',
             id: venue.id,
-            imageUrl: 'https://source.unsplash.com/300x100/?music',
+            imageUrl: 'https://s3-ap-southeast-2.amazonaws.com/musicaroundme.io/preview.jpg',
             url: venue.uri,
             name: venue.displayName,
             upcomingEvents: 0,

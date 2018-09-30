@@ -78,7 +78,7 @@ class EventWrapper {
                 const imageUrl =
                     venue.images && venue.images.length > 0
                         ? venue.images[0].url
-                        : 'https://source.unsplash.com/300x100/?music';
+                        : 'https://s3-ap-southeast-2.amazonaws.com/musicaroundme.io/preview.jpg';
 
                 this._venue = {
                     address,

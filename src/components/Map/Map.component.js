@@ -8,7 +8,6 @@ import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import MapControlCurrentPosition from 'components/MapControlCurrentPosition/MapControlCurrentPosition.component';
 import VenueMarkers from 'components/VenueMarkers/VenueMarkers.component';
-import VenueInfoBox from 'components/VenueInfoBox/VenueInfoBox.component';
 import styles from './Map.styles';
 
 const defaultOptions = {
@@ -73,34 +72,35 @@ class Map extends React.PureComponent {
             zoomOnVenue,
         } = this.props;
         return (
-            <GoogleMap
-                center={position}
-                zoom={zoom}
-                options={defaultOptions}
-                onDragEnd={() => onDragEnd({ center: getPosition(this.map.getCenter()) })}
-                onBoundsChanged={this.onBoundsChanged}
-                ref={this.onMapMounted}
-                className={classes.map}
-            >
-                <MapControlCurrentPosition position={google.maps.ControlPosition.RIGHT_BOTTOM}>
-                    <Button className={classes.gpsButton} onClick={getCurrentPosition}>
-                        <GpsFixed />
-                    </Button>
-                </MapControlCurrentPosition>
-                <SearchBox
-                    controlPosition={google.maps.ControlPosition.TOP_LEFT}
-                    onPlacesChanged={this.onPlacesChanged}
-                    ref={this.onSearchBoxMounted}
+            <div style={{ position: 'relative' }}>
+                <GoogleMap
+                    center={position}
+                    zoom={zoom}
+                    options={defaultOptions}
+                    onDragEnd={() => onDragEnd({ center: getPosition(this.map.getCenter()) })}
+                    onBoundsChanged={this.onBoundsChanged}
+                    ref={this.onMapMounted}
+                    className={classes.map}
                 >
-                    <input
-                        type="text"
-                        placeholder="Search location..."
-                        className={classes.search}
-                    />
-                </SearchBox>
-                <VenueMarkers venues={venues} zoomOnVenue={zoomOnVenue} />
-                <VenueInfoBox />
-            </GoogleMap>
+                    <MapControlCurrentPosition position={google.maps.ControlPosition.RIGHT_BOTTOM}>
+                        <Button className={classes.gpsButton} onClick={getCurrentPosition}>
+                            <GpsFixed />
+                        </Button>
+                    </MapControlCurrentPosition>
+                    <SearchBox
+                        controlPosition={google.maps.ControlPosition.TOP_LEFT}
+                        onPlacesChanged={this.onPlacesChanged}
+                        ref={this.onSearchBoxMounted}
+                    >
+                        <input
+                            type="text"
+                            placeholder="Search location..."
+                            className={classes.search}
+                        />
+                    </SearchBox>
+                    <VenueMarkers venues={venues} zoomOnVenue={zoomOnVenue} />
+                </GoogleMap>
+            </div>
         );
     }
 }

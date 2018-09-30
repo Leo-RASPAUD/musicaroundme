@@ -11,24 +11,35 @@ const appReducer = (state = initialState, action) => {
     switch (action.type) {
         case states.GET_UPCOMING_EVENTS.success: {
             const currentPosition = {};
-            const venuesNoDuplicates = [];
-            const venues = action.upcomingEvents.map(event => event.venue);
-
-            for (let i = 0; i < venues.length; i += 1) {
-                const element = venues[i];
-                if (!element.id) {
-                    element.id = -1;
-                    currentPosition.lat = element.lat;
-                    currentPosition.lng = element.lng;
+            let venuesNoDuplicates = [];
+            for (let i = 0; i < action.upcomingEvents.length; i += 1) {
+                const element = action.upcomingEvents[i];
+                const { venue } = element;
+                if (!venue.id) {
+                    venue.id = -1;
+                    currentPosition.lat = venue.lat;
+                    currentPosition.lng = venue.lng;
                 }
-                if (!element.lat || !element.lng) {
-                    element.lat = currentPosition.lat;
-                    element.lng = currentPosition.lng;
+                if (!venue.lat || !venue.lng) {
+                    venue.lat = currentPosition.lat;
+                    venue.lng = currentPosition.lng;
                 }
 
-                const alreadyExists = venuesNoDuplicates.find(venue => venue.id === element.id);
+                const alreadyExists = venuesNoDuplicates.find(
+                    venueNoDuplicate => venueNoDuplicate.details.id === venue.id,
+                );
                 if (!alreadyExists) {
-                    venuesNoDuplicates.push(element);
+                    venuesNoDuplicates.push({ details: venue, events: [element.event] });
+                } else {
+                    venuesNoDuplicates = venuesNoDuplicates.map(venueNoDuplicate => {
+                        if (venueNoDuplicate.details.id === venue.id) {
+                            return {
+                                ...venueNoDuplicate,
+                                events: venueNoDuplicate.events.concat(element.event),
+                            };
+                        }
+                        return venueNoDuplicate;
+                    });
                 }
             }
             return {
@@ -40,7 +51,7 @@ const appReducer = (state = initialState, action) => {
             return {
                 ...state,
                 items: state.items.map(venue => {
-                    if (venue.id === action.venueId) {
+                    if (venue.details.id === action.venueId) {
                         return {
                             ...venue,
                             selected: true,
