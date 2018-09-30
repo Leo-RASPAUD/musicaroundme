@@ -4,7 +4,7 @@
     "description": "MusicAroundMe",
     "main": "index.js",
     "scripts": {
-        "watch": "./node_modules/.bin/webpack-dev-server --config webpack.config.js",
+        "watch": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --open",
         "build": "./node_modules/.bin/webpack --config webpack.config.prod.js",
         "deploy": "aws s3 sync dist/ s3://musicaroundme"
     },

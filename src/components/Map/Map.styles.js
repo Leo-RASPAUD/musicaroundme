@@ -30,4 +30,7 @@ export default () => ({
         outline: 'none',
         textOverflow: 'ellipses',
     },
+    map: {
+        ...cssConstants.position.relative,
+    },
 });

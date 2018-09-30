@@ -15,14 +15,14 @@ const MusicAroundMe = props => {
             <Snackbar />
             {isLoadingConfiguration && <CircularProgress color="secondary" size={50} />}
             {!isLoadingConfiguration && (
-                <Fragment>
+                <div className={classes.root}>
                     <AppBar position="static" className={classes.toolbar}>
                         <AppToolbar />
                     </AppBar>
                     <div className={classes.border} />
                     <LoadingBar className={classes.loadingBar} />
                     <Router />
-                </Fragment>
+                </div>
             )}
         </Fragment>
     );

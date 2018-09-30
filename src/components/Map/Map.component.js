@@ -8,6 +8,7 @@ import { SearchBox } from 'react-google-maps/lib/components/places/SearchBox';
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 import MapControlCurrentPosition from 'components/MapControlCurrentPosition/MapControlCurrentPosition.component';
 import VenueMarkers from 'components/VenueMarkers/VenueMarkers.component';
+import VenueInfoBox from 'components/VenueInfoBox/VenueInfoBox.component';
 import styles from './Map.styles';
 
 const defaultOptions = {
@@ -22,8 +23,8 @@ const getPosition = position => JSON.parse(JSON.stringify(position));
     googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${
         props.gmapsApiKey
     }&libraries=geometry,drawing,places`,
-    loadingElement: <div style={{ height: 'calc(100vh - 64px - 35px)' }} />,
-    containerElement: <div style={{ height: 'calc(100vh - 64px - 35px)' }} />,
+    loadingElement: <div style={{ flex: 1 }} />,
+    containerElement: <div style={{ flex: 1 }} />,
     mapElement: <div style={{ height: '100%' }} />,
 }))
 @withScriptjs
@@ -79,6 +80,7 @@ class Map extends React.PureComponent {
                 onDragEnd={() => onDragEnd({ center: getPosition(this.map.getCenter()) })}
                 onBoundsChanged={this.onBoundsChanged}
                 ref={this.onMapMounted}
+                className={classes.map}
             >
                 <MapControlCurrentPosition position={google.maps.ControlPosition.RIGHT_BOTTOM}>
                     <Button className={classes.gpsButton} onClick={getCurrentPosition}>
@@ -97,6 +99,7 @@ class Map extends React.PureComponent {
                     />
                 </SearchBox>
                 <VenueMarkers venues={venues} zoomOnVenue={zoomOnVenue} />
+                <VenueInfoBox />
             </GoogleMap>
         );
     }

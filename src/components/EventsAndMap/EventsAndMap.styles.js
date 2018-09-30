@@ -1,14 +1,20 @@
 import cssConstants from 'constants/css.constants';
 
 export default () => ({
-    ticketmasterLogo: {
-        ...cssConstants.display.flex,
-        ...cssConstants.alignItems.center,
-        ...cssConstants.justifyContent.center,
+    footer: {
         transform: 'scale(0.25)',
+        height: 35,
     },
-    events: {
+    flexColumn: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,
+    },
+    root: {
+        flex: 1,
+        ...cssConstants.display.flex,
+        ...cssConstants.flexDirection.column,
+    },
+    flex1: {
+        flex: 1,
     },
 });

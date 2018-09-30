@@ -21,6 +21,7 @@ const styles = theme => ({
         opacity: 0.5,
         ...cssConstants.position.absolute,
     },
+    root: { display: 'flex', flexDirection: 'column', height: '100%' },
 });
 
 export default styles;
