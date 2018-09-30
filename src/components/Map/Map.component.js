@@ -19,9 +19,9 @@ const defaultOptions = {
 const getPosition = position => JSON.parse(JSON.stringify(position));
 
 @withProps(props => ({
-    googleMapURL: `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${
+    googleMapURL: `https://maps.googleapis.com/maps/api/js?key=${
         props.gmapsApiKey
-    }&libraries=geometry,drawing,places`,
+    }&libraries=places`,
     loadingElement: <div style={{ flex: 1 }} />,
     containerElement: <div style={{ flex: 1 }} />,
     mapElement: <div style={{ height: '100%' }} />,
