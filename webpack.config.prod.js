@@ -55,7 +55,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: '[name].js',
+        filename: 'bundle.[contenthash].js',
     },
     plugins: [new FaviconsWebpackPlugin('./src/assets/favicon.svg'), htmlPlugin],
 };

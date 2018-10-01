@@ -3,7 +3,7 @@ pipelines:
         'master':
             - step:
                   name: Build
-                  image: node:alpine
+                  image: node:latest
                   caches:
                       - node
                   script:
