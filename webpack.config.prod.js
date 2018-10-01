@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const metaParameters = require('./utils/metaParameters');
 
 require('@babel/polyfill');
 
@@ -9,7 +10,15 @@ const htmlPlugin = new HtmlWebpackPlugin({
     template: './src/index.ejs',
     appMountId: 'root',
     mobile: true,
-    meta: [],
+    meta: [
+        metaParameters.description,
+        metaParameters.keyWords,
+        metaParameters.applicationName,
+        metaParameters.openGraph.description,
+        metaParameters.openGraph.image,
+        metaParameters.openGraph.title,
+        metaParameters.openGraph.type,
+    ],
     scripts: [],
 });
 
