@@ -1,3 +1,9 @@
-# musicaroundme
+# MusicAroundMe.io
 
-# todo: use serverless to create configuration api
+# Instructions
+
+## yarn
+
+## yarn watch
+
+## yarn build
