@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const metaParameters = require('./utils/metaParameters');
 
 require('@babel/polyfill');
@@ -10,7 +11,6 @@ const htmlPlugin = new HtmlWebpackPlugin({
     template: './src/index.ejs',
     appMountId: 'root',
     mobile: true,
-    favicon: './favicon.svg',
     meta: [
         metaParameters.description,
         metaParameters.keyWords,
@@ -62,5 +62,5 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
     },
-    plugins: [htmlPlugin],
+    plugins: [new FaviconsWebpackPlugin('./favicon.svg'), htmlPlugin],
 };

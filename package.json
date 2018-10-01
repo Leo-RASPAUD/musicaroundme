@@ -50,6 +50,7 @@
         "axios": "^0.18.0",
         "classnames": "^2.2.6",
         "css-loader": "^1.0.0",
+        "favicons-webpack-plugin": "^0.0.9",
         "history": "^4.7.2",
         "moment": "^2.22.2",
         "prop-types": "^15.6.2",
