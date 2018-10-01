@@ -35,7 +35,7 @@ const openGraph = {
     },
     type: {
         property: 'og:type',
-        content: 'image.png',
+        content: 'image.jpg',
     },
 };
 
