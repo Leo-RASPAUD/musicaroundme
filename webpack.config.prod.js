@@ -57,5 +57,5 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
     },
-    plugins: [new FaviconsWebpackPlugin('./favicon.svg'), htmlPlugin],
+    plugins: [new FaviconsWebpackPlugin('./src/assets/favicon.svg'), htmlPlugin],
 };
