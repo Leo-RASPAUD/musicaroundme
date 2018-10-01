@@ -4,7 +4,7 @@
     "description": "MusicAroundMe",
     "main": "index.js",
     "scripts": {
-        "watch": "./node_modules/.bin/webpack-dev-server --config webpack.config.js --open",
+        "watch": "./node_modules/.bin/webpack-dev-server --config webpack.config.js",
         "build": "./node_modules/.bin/webpack --config webpack.config.prod.js",
         "deploy": "aws s3 sync dist/ s3://musicaroundme"
     },
@@ -37,6 +37,7 @@
         "eslint-plugin-jsx-a11y": "^6.0.3",
         "eslint-plugin-react": "^7.9.1",
         "express": "^4.16.3",
+        "favicons-webpack-plugin": "^0.0.9",
         "html-webpack-plugin": "^3.2.0",
         "webpack": "^4.16.1",
         "webpack-cli": "^3.1.0",
