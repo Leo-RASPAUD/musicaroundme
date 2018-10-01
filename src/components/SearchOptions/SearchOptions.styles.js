@@ -3,7 +3,7 @@ import cssConstants from 'constants/css.constants';
 export default theme => ({
     root: {
         backgroundColor: theme.palette.primary.main,
-        padding: `${2 * theme.spacing.unit}px 0 `,
+        padding: 2 * theme.spacing.unit,
     },
     media: {
         objectFit: 'cover',

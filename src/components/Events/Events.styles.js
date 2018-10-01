@@ -31,6 +31,15 @@ export default theme => ({
     panelRoot: {
         padding: `0 ${2 * theme.spacing.unit}px`,
     },
+    noEvents: {
+        ...cssConstants.display.flex,
+        ...cssConstants.alignItems.center,
+        ...cssConstants.flexDirection.column,
+        margin: 2 * theme.spacing.unit,
+    },
+    noEventsText: {
+        marginTop: 2 * theme.spacing.unit,
+    },
     panelWrapper: {
         ...cssConstants.display.flex,
         ...cssConstants.flexDirection.column,

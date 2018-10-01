@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 import { Home, ExpandMore, ExpandLess } from '@material-ui/icons';
 import { Facebook } from 'react-content-loader';
-import { FaTicketAlt, FaWikipediaW, FaYoutube, FaFacebookF } from 'react-icons/fa';
+import { FaRegFrown, FaTicketAlt, FaWikipediaW, FaYoutube, FaFacebookF } from 'react-icons/fa';
 import SearchOptions from 'containers/SearchOptions.container';
 import styles from './Events.styles';
 
@@ -46,7 +46,16 @@ const Events = props => {
             <SearchOptions />
             {loading.length > 0 && <Facebook style={{ paddingTop: 8 }} />}
             <div className={classes.root}>
-                {loading.length === 0 && upcomingEvents.length === 0 && <div>No events</div>}
+                {loading.length === 0 &&
+                    upcomingEvents.length === 0 && (
+                        <div className={classes.noEvents}>
+                            <FaRegFrown size="3em" color="#3f51b5" />
+                            <Typography className={classes.noEventsText}>
+                                Unfortunately we could not find any events close to you yet, please
+                                try again later we are constantly updating our app!
+                            </Typography>
+                        </div>
+                    )}
                 {loading.length === 0 &&
                     events.length > 0 &&
                     events.map(item => {

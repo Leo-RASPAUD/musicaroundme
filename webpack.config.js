@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const metaParameters = require('./utils/metaParameters');
 
 require('@babel/polyfill');
@@ -62,5 +61,5 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.[contenthash].js',
     },
-    plugins: [new FaviconsWebpackPlugin('./src/assets/favicon.svg'), htmlPlugin],
+    plugins: [htmlPlugin],
 };
