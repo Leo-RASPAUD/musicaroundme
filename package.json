@@ -47,7 +47,7 @@
         "@material-ui/icons": "^3.0.1",
         "animate.css": "^3.6.1",
         "aws-amplify": "^1.0.2",
-        "axios": "^0.18.0",
+        "axios": "^0.21.1",
         "classnames": "^2.2.6",
         "css-loader": "^1.0.0",
         "favicons-webpack-plugin": "^0.0.9",
